@@ -1,0 +1,13 @@
+Package: MutationalPatterns
+Type: Package
+Title: Point mutation patterns
+Description: Extract and plot patterns from point mutation catalogues
+Version: 0.1
+Date: 2015-02-09
+Author: Francis Blokzijl
+Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
+License: none
+Depends: VariantAnnotation, GenomicRanges, IRanges, ggplot2, BSgenome, RColorBrewer, BiocGenerics, gplots, NMF, reshape2, plyr
+ZipData: NA
+LazyData: false
+RoxygenNote: 5.0.1
