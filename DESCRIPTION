@@ -6,7 +6,7 @@ Version: 0.1
 Date: 2015-02-09
 Author: Francis Blokzijl
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
-License: none
+License: MIT + file LICENSE
 Depends: VariantAnnotation, GenomicRanges, IRanges, ggplot2, BSgenome, RColorBrewer, BiocGenerics, gplots, NMF, reshape2, plyr
 ZipData: NA
 LazyData: false
