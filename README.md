@@ -10,7 +10,6 @@ The MutationalPatterns R package provides a comprehensive set of functions for t
 install.packages("devtools")
 library(devtools)
 ```
-
 2. Install and load MutationalPatterns package
 
 ```{r}
@@ -25,7 +24,6 @@ library(MutationalPatterns)
 ```{r}
 available.genomes()
 ```
-
 2. Download and load your reference genome of choice
 
 ```{r}
