@@ -24,7 +24,7 @@ library(MutationalPatterns)
 ```{r}
 available.genomes()
 ```
-2. Download and load your reference genome of choice
+2. Download and load your reference genome of interest
 
 ```{r}
 source("http://bioconductor.org/biocLite.R")
