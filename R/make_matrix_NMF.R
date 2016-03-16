@@ -5,14 +5,14 @@
 #' @import GenomicRanges
 #' @export
 
-make_matrix_NMF = function(vcf_list, type = "normal")
+make_matrix_NMF = function(vcf_list, ref_genome, type = "normal")
 {
   df = data.frame()
   if(type == "normal")
   {
     for(vcf in vcf_list)
     {
-      type_context = get_type_context(vcf)
+      type_context = get_type_context(vcf, ref_genome)
       row = make_sample_row_96(type_context)
       df = rbind(df, row)
     }

@@ -5,9 +5,9 @@
 #' @return trinucleotides
 #' @export
 
-get_type_context = function(vcf)
+get_type_context = function(vcf, ref_genome)
 {
-  mut_context = get_mut_context(vcf)
+  mut_context = get_mut_context(vcf, ref_genome)
   muts = get_muts(vcf)
   types = get_types(vcf)  
   # find the mutations for which the context needs to be adjusted
