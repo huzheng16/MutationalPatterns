@@ -1,7 +1,6 @@
 #' Plot 192 trinucleotide signatures 
 #' 
 #' @param signatures Dataframe containing mutational sigantures
-#' @export
 
 plot_signatures_192 = function(signatures)
 {
