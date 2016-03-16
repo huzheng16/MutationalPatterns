@@ -5,7 +5,7 @@
 #' @export
 #' 
 
-count_type_occurences = function(vcf_list)
+count_type_occurences = function(vcf_list, ref_genome)
 {  
   n_samples = length(vcf_list)
   df = data.frame()
@@ -16,7 +16,7 @@ count_type_occurences = function(vcf_list)
     vcf = vcf_list[[i]]
     types = get_types(vcf)
     CT_muts = which(types == "C>T")
-    CT_context = get_type_context(vcf[CT_muts])[[2]]
+    CT_context = get_type_context(vcf[CT_muts], ref_genome)[[2]]
     CpG = c("ACG", "CCG", "TCG", "GCG")
     CT_at_CpG = sum((CT_context %in% CpG)*1)
     CT_at_other = sum(!(CT_context %in% CpG)*1)
