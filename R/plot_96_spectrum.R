@@ -1,5 +1,13 @@
+#' Plot 96 trinucleotide changes spectrum
+#'    
+#' @param mut_spectrum_96 96 trinucleotide changes count matrix
+#' @return plot 96 trinucleotide changes spectrum plot
+#' @export
 
-plot_96_spectrum = function(mut_spectrum_96){
+
+plot_96_spectrum = function(mut_spectrum_96, colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93")){
+  # check color vector length
+  if(length(colors) != 6){stop("Color vector length not 6")}
   signatures = t(mut_spectrum_96)  
   substitutions = c('C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G')
   index = c(rep(1,1,16), rep(2,1,16), rep(3,1,16), rep(4,1,16), rep(5,1,16), rep(6,1,16))
@@ -17,7 +25,7 @@ plot_96_spectrum = function(mut_spectrum_96){
   
   print(ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6)) +  
           geom_bar(stat="identity", colour="black", size=.2) + 
-          scale_fill_manual(values=sub_colors) + 
+          scale_fill_manual(values=colors) + 
           facet_grid(variable ~ substitution) + 
           ylab("Relative contribution") + 
           coord_cartesian(ylim=c(0,0.15)) +

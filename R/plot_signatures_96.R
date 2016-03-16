@@ -5,8 +5,10 @@
 #' @param outdir Specify output directory
 #' @export
 
-plot_signatures_96 = function(signatures)
+plot_signatures_96 = function(signatures, colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))
 {
+  # check color vector length
+  if(length(colors) != 6){stop("Color vector length not 6")}
   # Variables for signature plotting
   substitutions = c('C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G')
   index = c(rep(1,1,16), rep(2,1,16), rep(3,1,16), rep(4,1,16), rep(5,1,16), rep(6,1,16))
@@ -29,7 +31,7 @@ plot_signatures_96 = function(signatures)
   df3 = melt(df2, id.vars = c("substitution", "context"))
   plot = ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6)) +  
           geom_bar(stat="identity", colour="black", size=.1) + 
-          scale_fill_manual(values=sub_colors) + 
+          scale_fill_manual(values=colors) + 
           facet_grid(variable ~ substitution) + 
           ylab("Relative contribution") + 
           coord_cartesian(ylim=c(0,0.25)) +

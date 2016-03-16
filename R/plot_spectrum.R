@@ -6,8 +6,10 @@
 #' @return plot Spectrum plot
 #' @export
 
-plot_spectrum = function(type_occurences, CT = F, by = "all")
+plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C8", "#B2D39C", "#B3D9CF","#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))
 {
+  # check color vector length
+  if(length(colors) != 7){stop("Color vector length not 7")}
   if(CT == F){type_occurences = type_occurences[,1:6] }
   if(CT == T){type_occurences = type_occurences[,c(1:2,8,7,4:6)]}
   # relative contribution per sample
@@ -27,12 +29,11 @@ plot_spectrum = function(type_occurences, CT = F, by = "all")
   info_type = data.frame(sub_type = c("C>A", "C>G", "C>T", "C>T", "C>T", "T>A", "T>C", "T>G"), variable = c("C>A", "C>G", "C>T", "C>T at CpG", "C>T other", "T>A", "T>C", "T>G"))
   x = merge(x,info_type)
   # define colors for plotting
-  colors = sub_colors 
+  if(CT == F){colors = colors[c(1,2,4:7)]}
   # define positioning of error bars
   x$error_pos = x$mean
   # if C>T stacked bar (distinction between CpG sites and other)
   if(CT == T){
-    colors = extended_sub_colors
     # adjust positioning of error bars for stacked bars
     # mean of C>T at CpG should be plus the mean of C>T at other
     x = x[order(x$by),]
