@@ -4,7 +4,7 @@
 \alias{make_matrix_NMF}
 \title{Construct trinucleotide changes frequency matrix}
 \usage{
-make_matrix_NMF(vcf_list, type = "normal")
+make_matrix_NMF(vcf_list, ref_genome, type = "normal")
 }
 \arguments{
 \item{vcf_list}{List of collapsed vcf objects from which one would like to contstruct a count matrix}

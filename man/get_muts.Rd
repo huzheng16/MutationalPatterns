@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_muts.R
 \name{get_muts}
 \alias{get_muts}
-\title{Retrieve base substitutions from vcf file}
+\title{Retrieve base substitutions from vcf}
 \usage{
 get_muts(vcf)
 }
@@ -10,9 +10,9 @@ get_muts(vcf)
 \item{vcf}{A CollapsedVCF object}
 }
 \value{
-muts Base substitutions
+muts Character vector with base substitutions
 }
 \description{
-A function to extract REF and ALT alleles from vcf file
+A function to extract base substitutions of each position in vcf
 }
 

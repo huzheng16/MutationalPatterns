@@ -4,9 +4,9 @@
 \alias{count_type_occurences}
 \title{Count the occurences of each substitution type}
 \usage{
-count_type_occurences(vcf_list)
+count_type_occurences(vcf_list, ref_genome)
 
-count_type_occurences(vcf_list)
+count_type_occurences(vcf_list, ref_genome)
 }
 \arguments{
 \item{vcf_list}{A list of CollapsedVCF object}

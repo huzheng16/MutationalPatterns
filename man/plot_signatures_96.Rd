@@ -4,7 +4,8 @@
 \alias{plot_signatures_96}
 \title{Plot 96 trinucleotide signatures}
 \usage{
-plot_signatures_96(signatures)
+plot_signatures_96(signatures, colors = c("#DBD7C8", "#B2D39C", "#71C1BA",
+  "#2DAFCE", "#2476B2", "#737E93"))
 }
 \arguments{
 \item{vcf_files}{Character vector of vcf_files}

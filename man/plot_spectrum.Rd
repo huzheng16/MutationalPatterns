@@ -4,7 +4,8 @@
 \alias{plot_spectrum}
 \title{Plot point mutation spectrum}
 \usage{
-plot_spectrum(type_occurences, CT = F, by = "all")
+plot_spectrum(type_occurences, CT = F, by = "all", colors = c("#DBD7C8",
+  "#B2D39C", "#B3D9CF", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))
 }
 \arguments{
 \item{type_occurences}{Type occurences matrix}

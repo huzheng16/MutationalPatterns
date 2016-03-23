@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_types.R
 \name{get_types}
 \alias{get_types}
-\title{Retrieve base substitution types from vcf file}
+\title{Retrieve base substitution types from vcf}
 \usage{
 get_types(vcf)
 }
@@ -10,9 +10,9 @@ get_types(vcf)
 \item{vcf}{A CollapsedVCF object}
 }
 \value{
-types Base substitution types
+types Character vector with base substitution types
 }
 \description{
-A function to extract the base substitutions and translate to the 6 base substitution types
+A function to extract the base substitutions from a vcf and translate to the 6 common base substitution types
 }
 

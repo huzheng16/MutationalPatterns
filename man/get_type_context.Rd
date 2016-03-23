@@ -4,7 +4,7 @@
 \alias{get_type_context}
 \title{Retrieve context of base substitution types}
 \usage{
-get_type_context(vcf)
+get_type_context(vcf, ref_genome)
 }
 \arguments{
 \item{vcf}{A CollapsedVCF object}
@@ -13,6 +13,6 @@ get_type_context(vcf)
 trinucleotides
 }
 \description{
-A function to extract the bases 3' upstream and 5' downstream of a base substitution type
+A function to extract the bases 3' upstream and 5' downstream of the base substitution types
 }
 

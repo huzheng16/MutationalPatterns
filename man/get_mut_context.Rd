@@ -4,17 +4,17 @@
 \alias{get_mut_context}
 \title{Retrieve context of base substitutions}
 \usage{
-get_mut_context(vcf)
+get_mut_context(vcf, ref_genome)
 }
 \arguments{
 \item{vcf}{A CollapsedVCF object}
 
-\item{ref_genome}{}
+\item{ref_genome}{Reference genome}
 }
 \value{
 trinucleotides
 }
 \description{
-A function to extract the bases 3' upstream and 5' downstream of each position in vcf
+A function to extract the bases 3' upstream and 5' downstream of the base substitutions
 }
 
