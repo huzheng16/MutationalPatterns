@@ -57,12 +57,32 @@ Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissu
 
 ### Mutation types
 
-Count mutation type occurences for one vcf
+Retrieve base substitutions from vcf object as "REF>ALT"
   ```{r}
-  type_occurences = count_type_occurences(list(vcf))
+  get_muts(vcf)
+  ```
+  
+Retrieve base substitution from vcf and converted to the 6 types of base substitution types that are distinguished by convention: C>A, C>G, C>T, T>A, T>C, T>G. For example, if the reference allele is G and the alternative allele is T (G>T), this functions returns the G:C>T:A mutation as a C>A mutation.
+  ```{r}
+  get_types(vcf)
+  ```
+  
+Retrieve the context (1 base upstream and 1 base downstream) of the positions in the vcf object from the reference genome.
+  ```{r}
+  get_mut_context(vcf, ref_genome)
   ```
 
-Count mutation type occurences for all samples in vcf list
+Retrieve the types and context of the base substitution types for all positions in the vcf object. For the base substitutions that are converted to the conventional base substitution types, the reverse complement of the context is returned.
+  ```{r}
+  get_type_context(vcf, ref_genome)
+  ```
+
+Count mutation type occurences for one vcf object
+  ```{r}
+  type_occurences = count_type_occurences(list(vcf), ref_genome)
+  ```
+
+Count mutation type occurences for all samples in a list of vcf objects
   ```{r}
   type_occurences = count_type_occurences(vcf_list)
   ```
@@ -87,10 +107,11 @@ Plot spectrum for each sample type separately
   ```{r}
   plot_spectrum(type_occurences_ercc1, by = sample_type, CT = T)
   ```
+  ![spectrum](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectrum_per_type.pdf)
 
 ### Rainfall plot
 
-Define chromosomes you want to plot
+Define the chromosomes you want to include in your rainfall plot
   ```{r}
   chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1:19]
   ```
