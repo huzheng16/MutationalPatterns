@@ -2,7 +2,6 @@
 #' 
 #' @param vcf_list A list of CollapsedVCF object
 #' @return dataframe
-#' @export
 
 count_type_occurences = function(vcf_list)
 {  

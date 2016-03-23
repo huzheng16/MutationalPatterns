@@ -3,7 +3,6 @@
 #' Function to extract the sample name from path to file
 #' @param file_name String of path to file
 #' @return name String of sample name
-#' @export 
 
 extract_sample_name = function(filename)
 {
