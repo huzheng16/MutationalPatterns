@@ -14,6 +14,8 @@
 
 rainfall_plot = function(vcf, ref_genome, chromosomes, title = "", color = c('#1B9E77', '#D95F02', '#7570B3', '#E7298A', '#E6AB02', 'black'), cex = 2.5, cex_text = 3, ylim = 1e+08)
 {
+  # check color vector length
+  if(length(color) != 6){stop("Color vector length not 6")}
   # get chromsome lengths of reference genome
   chr_length = seqlengths(get(ref_genome))
   # subset
