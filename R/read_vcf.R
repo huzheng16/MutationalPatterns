@@ -8,8 +8,7 @@
 read_vcf = function(vcf_file)
 {
   vcf = readVcf(vcf_file, "-")
-  # check for chr in chromosomes
-  # probably don't want this for the package!
+  # add "chr" to chromosomes if not there already
   if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
   return(vcf)
 }
