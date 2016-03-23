@@ -107,7 +107,7 @@ Plot spectrum for each sample type separately
   ```{r}
   plot_spectrum(type_occurences_ercc1, by = sample_type, CT = T)
   ```
-  ![spectrum](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectrum_per_type.pdf)
+  ![spectrum](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectrum_per_type.png)
 
 ### Rainfall plot
 
