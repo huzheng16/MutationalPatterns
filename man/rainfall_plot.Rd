@@ -13,20 +13,20 @@ rainfall_plot(vcf, ref_genome, chromosomes, title = "", color = c("#1B9E77",
 
 \item{ref_genome}{BSgenome reference genome object}
 
-\item{title}{Character string optional plot title}
+\item{title}{Optional plot title}
 
 \item{color}{Vector of 6 colors used for plotting}
 
-\item{cex}{Dot size}
+\item{cex}{Point size}
 
 \item{cex_text}{Text size}
 
 \item{ylim}{Maximum y value (genomic distance)}
 
-\item{chrom}{Vector of chromosome/contig names in the reference genome}
+\item{chrom}{Vector of chromosome/contig names of the reference genome to be plotted}
 }
 \value{
-plot Rainfall plot
+Rainfall plot
 }
 \description{
 Rainfall plot visualizes the types of mutations and intermutation distance
