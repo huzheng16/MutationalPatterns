@@ -16,11 +16,11 @@ count_type_occurences(vcf_list, ref_genome)
 \value{
 dataframe
 
-dataframe
+Dataframe with counts of each base substitution type for each sample in vcf_list
 }
 \description{
 Count the occurences of each substitution type
 
-Count the occurences of each substitution type
+Count the occurences of each base substitution type
 }
 

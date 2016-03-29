@@ -1,8 +1,8 @@
-#' Retrieve base substitutions from vcf file
+#' Retrieve base substitutions from vcf
 #' 
-#' A function to extract REF and ALT alleles from vcf file
+#' A function to extract base substitutions of each position in vcf
 #' @param vcf A CollapsedVCF object
-#' @return muts Base substitutions
+#' @return Character vector with base substitutions
 #' @import GenomicRanges
 #' @export
 

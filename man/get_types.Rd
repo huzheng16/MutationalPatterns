@@ -10,7 +10,7 @@ get_types(vcf)
 \item{vcf}{A CollapsedVCF object}
 }
 \value{
-types Character vector with base substitution types
+Character vector with base substitution types
 }
 \description{
 A function to extract the base substitutions from a vcf and translate to the 6 common base substitution types

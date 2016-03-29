@@ -13,9 +13,11 @@ plot_spectrum(type_occurences, CT = F, by = "all", colors = c("#DBD7C8",
 \item{CT}{Optional distinction between C>T at CpG}
 
 \item{by}{Optional grouping variable}
+
+\item{colors}{Optional color vector with 7 values}
 }
 \value{
-plot Spectrum plot
+Spectrum plot
 }
 \description{
 Plot point mutation spectrum

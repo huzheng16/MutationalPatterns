@@ -12,7 +12,7 @@ get_mut_context(vcf, ref_genome)
 \item{ref_genome}{Reference genome}
 }
 \value{
-trinucleotides
+Character vector the context of the base substitutions
 }
 \description{
 A function to extract the bases 3' upstream and 5' downstream of the base substitutions

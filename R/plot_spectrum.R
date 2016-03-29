@@ -3,7 +3,8 @@
 #' @param type_occurences Type occurences matrix
 #' @param CT Optional distinction between C>T at CpG
 #' @param by Optional grouping variable
-#' @return plot Spectrum plot
+#' @param colors Optional color vector with 7 values
+#' @return Spectrum plot
 #' @export
 
 plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C8", "#B2D39C", "#B3D9CF","#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))

@@ -1,8 +1,8 @@
 #' Retrieve context of base substitution types
 #' 
-#' A function to extract the bases 3' upstream and 5' downstream of a base substitution type
+#' A function to extract the bases 3' upstream and 5' downstream of the base substitution types
 #' @param vcf A CollapsedVCF object
-#' @return trinucleotides
+#' @return Mutation types and context character vectors in a named list
 #' @export
 
 get_type_context = function(vcf, ref_genome)
@@ -19,5 +19,8 @@ get_type_context = function(vcf, ref_genome)
   y = reverse(y)
   # replace subset with reverse complement
   mut_context[x] = y
-  return(list(types, mut_context))
+  # return as named list
+  res = list(types, mut_context)
+  names(res) = c("types", "context")
+  return(res)
 }

@@ -10,7 +10,7 @@ get_muts(vcf)
 \item{vcf}{A CollapsedVCF object}
 }
 \value{
-muts Character vector with base substitutions
+Character vector with base substitutions
 }
 \description{
 A function to extract base substitutions of each position in vcf
