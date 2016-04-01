@@ -4,12 +4,14 @@
 \alias{plot_contribution}
 \title{Plot signature contribution}
 \usage{
-plot_contribution(nmf_res)
+plot_contribution(contribution, index = c(), coord_flip = F)
 }
 \arguments{
-\item{nmf_res}{NMF result}
+\item{index}{optional sample subset parameter}
 
-\item{index}{optional subset parameter}
+\item{coord_flip}{Flip X and Y coordinates, default = F}
+
+\item{nmf_res}{NMF result}
 }
 \description{
 Plot contribution of signatures including unexplained fraction
