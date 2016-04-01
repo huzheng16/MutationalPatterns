@@ -29,9 +29,10 @@ The MutationalPatterns R package provides a comprehensive set of functions for t
 2. Download and load your reference genome of interest
 
   ```{r}
+  ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
   source("http://bioconductor.org/biocLite.R")
-  biocLite("BSgenome.Hsapiens.UCSC.hg19")
-  library("BSgenome.Hsapiens.UCSC.hg19")
+  biocLite(ref_genome)
+  library(ref_genome, character.only = T)
   ```
   
 ### Load SNV data
@@ -62,7 +63,7 @@ Retrieve base substitutions from vcf object as "REF>ALT"
   get_muts(vcf)
   ```
   
-Retrieve base substitution from vcf and converted to the 6 types of base substitution types that are distinguished by convention: C>A, C>G, C>T, T>A, T>C, T>G. For example, if the reference allele is G and the alternative allele is T (G>T), this functions returns the G:C>T:A mutation as a C>A mutation.
+Retrieve base substitutions from vcf and convert to the 6 types of base substitution types that are distinguished by convention: C>A, C>G, C>T, T>A, T>C, T>G. For example, if the reference allele is G and the alternative allele is T (G>T), this functions returns the G:C>T:A mutation as a C>A mutation.
   ```{r}
   get_types(vcf)
   ```
@@ -84,7 +85,7 @@ Count mutation type occurences for one vcf object
 
 Count mutation type occurences for all samples in a list of vcf objects
   ```{r}
-  type_occurences = count_type_occurences(vcf_list)
+  type_occurences = count_type_occurences(vcf_list, ref_genome)
   ```
 
 Plot mutation spectrum over all samples. Plottes is the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
@@ -97,10 +98,10 @@ Plot mutation spectrum with distinction between C>T at CpG sites
   plot_spectrum(type_occurences, CT = T)
   ```
 
-Specify 7 colors for spectrum
+Specify 7 colors for spectrum plotting
   ```{r}
-  colors = c("black", "red", "yellow", "orange", "green", "brown", "pink")
-  plot_spectrum(type_occurences, CT = T)
+  your_colors = c("black", "red", "yellow", "orange", "green", "brown", "pink")
+  plot_spectrum(type_occurences, CT = T, colors = your_colors)
   ```
 
 Plot spectrum for each sample type separately
@@ -111,14 +112,19 @@ Plot spectrum for each sample type separately
 
 ### Rainfall plot
 
-Define the chromosomes you want to include in your rainfall plot
-  ```{r}
-  chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1:19]
-  ```
+A rainfall plot visualizes mutation types and intermutation distance. Rainfall plots can be used to visualize the distribution of mutations along the genome or a subset of chromosomes. The y-axis corresponds to the distance of a mutation with the previous mutation and is log10 transformed. Drop-downs from the plots indicate clusters or "hotspots" of mutations.
 
-Make rainfall plot
+Make rainfall plot of all autosomal chromosomes
   ```{r}
-  rainfall_plot(vcf_list[[1]], ref_genome = BSgenome.Hsapiens.UCSC.hg19, chromosomes = chromosomes)
+    your_chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1:21]
+    rainfall_plot(vcf_list[[1]], ref_genome = BSgenome.Hsapiens.UCSC.hg19, chromosomes = your_chromosomes)
   ```
   
+Make rainfall plot of chromosome 1
+
+  ```{r}
+    your_chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1]
+    rainfall_plot(vcf_list[[1]], ref_genome = BSgenome.Hsapiens.UCSC.hg19, chromosomes = your_chromosomes)
+  ```
+
   
