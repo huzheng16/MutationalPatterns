@@ -2,20 +2,21 @@
 % Please edit documentation in R/extract_signatures.R
 \name{extract_signatures}
 \alias{extract_signatures}
-\title{Extract mutational signatures using NMF}
+\title{Extract mutational signatures from 96 mutation matrix using NMF}
 \usage{
-extract_signatures(mut_spectrum, rank, nrun = 200)
+extract_signatures(mut_matrix, rank, nrun = 200)
 }
 \arguments{
-\item{rank}{Number of signatures one would like to extract}
+\item{mut_matrix}{96 mutation matrix}
+
+\item{rank}{Number of signatures to extract}
 
 \item{nrun}{Number of iterations, default = 200}
-
-\item{vcf_files}{Character vector of vcf_files}
-
-\item{outdir}{Specify output directory}
+}
+\value{
+Named list of mutation matrix, signatures and signature contribution
 }
 \description{
-Decomposes trinucleotide count matrix into signatures and contribution of those signatures to the spectra of the individuals samples/vcf files
+Decomposes trinucleotide count matrix into signatures and contribution of those signatures to the spectra of the samples/vcf files
 }
 
