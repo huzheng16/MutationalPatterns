@@ -1,27 +1,25 @@
 #' Estimate optimal rank for NMF decomposition
 #' 
 #' Find optimal number of signatures for NMF decomposition
-#' @param vcf_files Character vector of vcf_files
+#' @param mut_matrix 96 mutation count matrix
 #' @param rank_range Range of ranks one would like to test 
-#' @param outdir Specify output directory
+#' @param nrun Number of runs to perform, default=100
+#' @return NMF rank survey plot
 #' @export
 
-estimate_rank = function(mut_spectrum, rank_range, nrun=100, outdir)
+estimate_rank = function(mut_matrix, rank_range, nrun=100)
 {
   # Add small pseudocount
-  mut_spectrum = mut_spectrum + 0.0001
+  mut_matrix = mut_matrix + 0.0001
   # Check if rank_range is appropriate
-  if(nrow(mut_spectrum) < max(rank_range))
+  if(nrow(mut_matrix) < max(rank_range))
   {
-    stop("Maximum number of ranks should be smaller than the number of samples")
+    stop("Maximum rank should be smaller than the number of samples")
   }
   # Estimate ranks
   print("Estimating ranks...")
-  estim.r = NMF::nmf(mut_spectrum, rank = rank_range, method = "brunet", nrun = nrun, seed = 123456)
+  estim.r = NMF::nmf(mut_matrix, rank = rank_range, method = "brunet", nrun = nrun, seed = 123456)
   # plot result
-  output = paste(outdir,"estim_rank.pdf", sep="")
-  pdf(output)
-  print(plot(estim.r))
-  dev.off()
-  print(paste("Output is written to ", output))
+  plot = plot(estim.r)
+  return(plot)
 }
