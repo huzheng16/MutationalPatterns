@@ -1,7 +1,7 @@
 #' Extract mutational signatures from 96 mutation matrix using NMF
 #' 
 #' Decomposes trinucleotide count matrix into signatures and contribution of those signatures to the spectra of the samples/vcf files
-#' @param mut_matrix 96 mutation matrix 
+#' @param mut_matrix 96 mutation count matrix 
 #' @param rank Number of signatures to extract
 #' @param nrun Number of iterations, default = 200
 #' @return Named list of mutation matrix, signatures and signature contribution
@@ -9,7 +9,7 @@
 
 extract_signatures = function(mut_matrix, rank, nrun = 200)
 {
-  mut_matrix = t(as.matrix(mut_matrix))
+  mut_matrix = as.matrix(mut_matrix)
   # add small pseudocount
   mut_matrix = mut_matrix + 0.0001
   # Calculate nmf

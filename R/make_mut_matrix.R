@@ -17,5 +17,6 @@ make_mut_matrix = function(vcf_list, ref_genome)
   }
   names(df) = names(row)
   row.names(df) = names(vcf_list)
-  return(df)
+  # transpose
+  return(t(df))
 }

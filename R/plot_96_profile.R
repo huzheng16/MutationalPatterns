@@ -1,26 +1,26 @@
-#' Plot 96 trinucleotide changes spectrum
-#'    
-#' @param mut_spectrum_96 96 trinucleotide changes count matrix
-#' @return plot 96 trinucleotide changes spectrum plot
+#' Plot 96 trinucleotide profile
+#'  
+#' Plot relative contribution of 96 trinucleotides      
+#' @param mut_matrix 96 trinucleotide profile matrix
+#' @return 96 trinucleotide profile plot
 #' @export
 
 
-plot_96_profile = function(mut_spectrum_96, colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93")){
+plot_96_profile = function(mut_matrix, colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93")){
   # check color vector length
   if(length(colors) != 6){stop("Color vector length not 6")}
-  signatures = t(mut_spectrum_96)  
   substitutions = c('C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G')
   index = c(rep(1,1,16), rep(2,1,16), rep(3,1,16), rep(4,1,16), rep(5,1,16), rep(6,1,16))
   # Relative contribution
-  norm_signatures = apply(signatures, 2, function(x) x / sum(x) )
+  norm_mut_matrix = apply(mut_matrix, 2, function(x) x / sum(x) )
   # Context
-  context = rownames(norm_signatures)
+  context = rownames(norm_mut_matrix)
   # Replace mutated base with dot
   substring(context,2,2) = "."
   # Construct dataframe
   df = data.frame(substitution = substitutions[index], context = context)
-  rownames(norm_signatures) = NULL
-  df2 = cbind(df, as.data.frame(norm_signatures))
+  rownames(norm_mut_matrix) = NULL
+  df2 = cbind(df, as.data.frame(norm_mut_matrix))
   df3 = melt(df2, id.vars = c("substitution", "context"))
   
   print(ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6)) +  

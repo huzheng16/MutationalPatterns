@@ -7,7 +7,7 @@
 extract_signatures(mut_matrix, rank, nrun = 200)
 }
 \arguments{
-\item{mut_matrix}{96 mutation matrix}
+\item{mut_matrix}{96 mutation count matrix}
 
 \item{rank}{Number of signatures to extract}
 
