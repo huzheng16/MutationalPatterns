@@ -1,23 +1,30 @@
-#' Read a bed file as a Granges object
+#' Read region bed files
 #' 
-#' Read a bed file as a Granges object
-#' @param bed_file Location of your BED-file
-#' @return GR A GRanges object
+#' Read region bed files as a list of Granges objects
+#' @param bed_files Character vector with bed files
+#' @param region_names Character vector with names of regions
+#' @return granges_list List of Granges objects
 #' @import GenomicRanges
 #' @export
-#' @examples
-#' bed_to_granges("my_file.bed")
 
-bed_to_granges = function(bed_file)
+
+bed_to_granges = function(bed_files, region_names)
 {
-  bed = read.table(bed_file, header = F, stringsAsFactors = F)
-  chr = paste("chr", bed[,1], sep="")
-  # Convert BED (0-based) start postion to Granges (1-based)
-  start = bed[,2] + 1
-  # In BED end position is excluded, in Granges end position is included -> +1 -1 -> no conversion needed
-  end = bed[,3]
-  GR = GRanges(chr, IRanges(start,end))  
-  return(GR)
+  if(!(length(bed_files) == length(region_names))) stop("Provide the same number of region names as bed files")
+  granges_list = list()
+  for(i in 1:length(bed_files))
+  {
+    bed_file = bed_files[i]
+    bed = read.table(bed_file, header = F, stringsAsFactors = F)
+    chr = paste("chr", bed[,1], sep="")
+    # Convert BED (0-based) start postion to Granges (1-based)
+    start = bed[,2] + 1
+    # In BED end position is excluded, in Granges end position is included -> +1 -1 -> no conversion needed
+    end = bed[,3]
+    new_bed = GRanges(chr, IRanges(start,end))  
+    new_bed = list(new_bed)
+    names(new_bed) = region_names[i]
+    granges_list = c(granges_list, new_bed)
+  }
+  return(granges_list)
 }
-
-
