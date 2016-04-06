@@ -4,14 +4,12 @@
 \alias{genomic_distribution}
 \title{Find overlaps between mutations and a genomic region}
 \usage{
-genomic_distribution(vcf, surveyed, region)
+genomic_distribution(vcf_list, surveyed_list, region_list)
 }
 \arguments{
-\item{vcf}{CollapsedVCF object containing mutations}
+\item{vcf_list}{A list...}
 
-\item{surveyed}{GRanges object containing regions of the genome that were surveyed}
-
-\item{region}{GRanges object containing locations of genomic region(s)}
+\item{region_list}{List with GRanges objects containing locations of genomic regions}
 }
 \description{
 Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account

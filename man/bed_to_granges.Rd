@@ -2,20 +2,19 @@
 % Please edit documentation in R/bed_to_granges.R
 \name{bed_to_granges}
 \alias{bed_to_granges}
-\title{Read a bed file as a Granges object}
+\title{Read region bed files}
 \usage{
-bed_to_granges(bed_file)
+bed_to_granges(bed_files, region_names)
 }
 \arguments{
-\item{bed_file}{Location of your BED-file}
+\item{bed_files}{Character vector with bed files}
+
+\item{region_names}{Character vector with names of regions}
 }
 \value{
-GR A GRanges object
+granges_list List of Granges objects
 }
 \description{
-Read a bed file as a Granges object
-}
-\examples{
-bed_to_granges("my_file.bed")
+Read region bed files as a list of Granges objects
 }
 

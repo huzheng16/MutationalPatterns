@@ -2,20 +2,16 @@
 % Please edit documentation in R/enrichment_depletion_test.R
 \name{enrichment_depletion_test}
 \alias{enrichment_depletion_test}
-\title{Enrichment depletion test}
+\title{Find overlaps between mutations and a genomic region}
 \usage{
-enrichment_depletion_test(prob, observed, surveyed_region_length)
+enrichment_depletion_test(x, by = c())
 }
 \arguments{
-\item{observed}{Observed number of mutations in surveyed region}
+\item{x}{Dataframe result from genomic_distribution()}
 
-\item{surveyed_region_length}{Number of bp that is surveyed in region}
-
-\item{n_muts}{Number of mutations in whole surveyed genome}
-
-\item{surveyed_length}{Number of bp that was surveyed in whole genome}
+\item{by}{Optional aggregation vector}
 }
 \description{
-Test whether specific genomic region is depleted or enriched using binomial test
+aggregates (optional) and then performs enrichment depletion test
 }
 
