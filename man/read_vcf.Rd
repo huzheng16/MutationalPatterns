@@ -2,17 +2,23 @@
 % Please edit documentation in R/read_vcf.R
 \name{read_vcf}
 \alias{read_vcf}
-\title{Read vcf file}
+\title{Read vcf files into list of CollapsedVCF objects}
 \usage{
-read_vcf(vcf_file)
+read_vcf(vcf_files, sample_names)
 }
 \arguments{
-\item{vcf_file}{Vcf file to be read}
+\item{vcf_files}{Character vector of vcf file names}
+
+\item{sample_names}{Character vector of sample names}
 }
 \value{
-A CollapsedVCF object
+List of CollapsedVCF objects
 }
 \description{
-Function reads Variant Call Format (VCF) file into a CollapsedVCF object for hg19 genome
+Function reads Variant Call Format (VCF) files into a CollapsedVCF object and combines them in a list object
+}
+\examples{
+vcf_file_list = list.files("/your_vcf_dir/", full.names = T) 
+vcf_list = read_vcf_list(vcf_files_list, sample_names)
 }
 
