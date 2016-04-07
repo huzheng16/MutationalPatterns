@@ -4,7 +4,7 @@
 #' @return Dataframe with counts of each base substitution type for each sample in vcf_list
 #' @export
 
-count_type_occurences = function(vcf_list, ref_genome)
+mut_type_occurences = function(vcf_list, ref_genome)
 {  
   n_samples = length(vcf_list)
   df = data.frame()
