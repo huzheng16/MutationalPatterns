@@ -7,7 +7,7 @@
 #' @return Spectrum plot
 #' @export
 
-plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C8", "#B2D39C", "#B3D9CF","#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))
+plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C8", "#B2D39C", "#B3D9CF","#71C1BA", "#2DAFCE", "#2476B2", "#737E93"), legend = T)
 {
   # check color vector length
   if(length(colors) != 7){stop("Color vector length not 7")}
@@ -29,6 +29,8 @@ plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C
   x = merge(x, info_x)
   info_type = data.frame(sub_type = c("C>A", "C>G", "C>T", "C>T", "C>T", "T>A", "T>C", "T>G"), variable = c("C>A", "C>G", "C>T", "C>T at CpG", "C>T other", "T>A", "T>C", "T>G"))
   x = merge(x,info_type)
+  x$total_mutations = prettyNum(x$total_mutations, big.mark = ",")
+  x$total_mutations = paste("N =", as.character(x$total_mutations))
   # define colors for plotting
   if(CT == F){colors = colors[c(1,2,4:7)]}
   # define positioning of error bars
@@ -49,11 +51,15 @@ plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C
   plot = ggplot(data=x, aes(x=sub_type, y=mean, fill=variable, group=sub_type)) +
           geom_bar(stat="identity") +
           geom_errorbar(aes(ymin=error_pos-stdev, ymax=error_pos+stdev), width=0.2) + 
-          facet_wrap(by ~ total_mutations) + 
           scale_fill_manual(values=colors, name="Point mutation type") +
           theme_bw() +
           xlab("") +
           ylab("Relative contribution") + 
           theme(axis.ticks = element_blank(), axis.text.x = element_blank(), panel.grid.major.x = element_blank()) 
+  # facetting
+  if(length(by) == 1){plot = plot + facet_wrap( ~ total_mutations)}
+  else{plot = plot + facet_wrap(by ~ total_mutations)}
+  # legend
+  if(legend == F){plot = plot + theme(legend.position="none")}
   return(plot)
 } 
