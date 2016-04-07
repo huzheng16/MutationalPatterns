@@ -15,12 +15,12 @@ read_vcf = function(vcf_files, sample_names)
   vcf_list = list()
   for(i in 1:length(vcf_files))
   {
-    new_vcf = readVcf(vcf_files[i], "-")
+    vcf = readVcf(vcf_files[i], "-")
     # add "chr" to chromosomes if not there already
     if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
-    new_vcf = list(new_vcf)
-    names(new_vcf) = sample_names[i]
-    vcf_list = c(vcf_list, new_vcf)
+    vcf = list(vcf)
+    names(vcf) = sample_names[i]
+    vcf_list = c(vcf_list, vcf)
   }
   return(vcf_list)
 }
