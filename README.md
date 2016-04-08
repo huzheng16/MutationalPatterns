@@ -235,4 +235,17 @@ Make rainfall plot of sample 1 over chromosome 1
   ```
   ![rainfall2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall2.png)
 
+## Things to do
+
+1 Genomic distribution
+  - genomic regions bed input
+  - surveyed area??
+  
+2 Strand bias analysis 
+  - get gene bodies for each ref genome
+
+
+
+
+
   
