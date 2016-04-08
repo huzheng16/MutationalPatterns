@@ -1,6 +1,6 @@
 # MutationalPatterns
 
-The MutationalPatterns R package provides a comprehensive set of functions for the extraction and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
+The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
 
 ## Getting started
 
@@ -37,21 +37,25 @@ The MutationalPatterns R package provides a comprehensive set of functions for t
   
 ### Load SNV data
 
-Load a single vcf file
+Find package example data
   ```{r}
-  vcf = read_vcf("your_file.vcf")
+  vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
   ```
 
-Load a list of vcf files from directory
+Load a single vcf file
   ```{r}
-  vcf_file_list = list.files("your_dir", full.names = T)
-  sample_names = c("sample1", "sample2", "sample3", "sample4", "sample5", "sample6")
-  vcf_list = read_vcf_list(vcf_file_list, sample_names)
+  vcf = read_vcf(vcf_files[1], "sample1")
+  ```
+
+Load a list of vcf files
+  ```{r}
+  sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
+  vcfs = read_vcf(vcf_files, sample_names)
   ```
 
 Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissue type, mutant or wild type
   ```{r}
-  sample_type = c("mutant", "mutant", "mutant", "wt", "wt", "wt")
+  tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "liver", "liver", "liver")
   ```
 
 ##  Analyses
@@ -60,33 +64,35 @@ Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissu
 
 Retrieve base substitutions from vcf object as "REF>ALT"
   ```{r}
-  get_muts(vcf)
+  get_muts(vcfs[[1]])
   ```
   
 Retrieve base substitutions from vcf and convert to the 6 types of base substitution types that are distinguished by convention: C>A, C>G, C>T, T>A, T>C, T>G. For example, if the reference allele is G and the alternative allele is T (G>T), this functions returns the G:C>T:A mutation as a C>A mutation.
   ```{r}
-  get_types(vcf)
+  get_types(vcfs[[1]])
   ```
   
 Retrieve the context (1 base upstream and 1 base downstream) of the positions in the vcf object from the reference genome.
   ```{r}
-  get_mut_context(vcf, ref_genome)
+  get_mut_context(vcfs[[1]], ref_genome)
   ```
 
 Retrieve the types and context of the base substitution types for all positions in the vcf object. For the base substitutions that are converted to the conventional base substitution types, the reverse complement of the context is returned.
   ```{r}
-  get_type_context(vcf, ref_genome)
+  get_type_context(vcfs[[1]], ref_genome)
   ```
 
 Count mutation type occurences for one vcf object
   ```{r}
-  type_occurences = count_type_occurences(list(vcf), ref_genome)
+  type_occurences = count_type_occurences(vcfs[[1]], ref_genome)
   ```
 
 Count mutation type occurences for all samples in a list of vcf objects
   ```{r}
-  type_occurences = count_type_occurences(vcf_list, ref_genome)
+  type_occurences = count_type_occurences(vcfs, ref_genome)
   ```
+
+### Mutation spectrum
 
 Plot mutation spectrum over all samples. Plottes is the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
   ```{r}
@@ -98,19 +104,32 @@ Plot mutation spectrum with distinction between C>T at CpG sites
   plot_spectrum(type_occurences, CT = T)
   ```
 
-Specify 7 colors for spectrum plotting
+Plot spectrum without legend
   ```{r}
-  your_colors = c("black", "red", "yellow", "orange", "green", "brown", "pink")
-  plot_spectrum(type_occurences, CT = T, colors = your_colors)
+  plot_spectrum(type_occurences, CT = T)
   ```
 
-Plot spectrum for each sample type separately
-  ```{r}
-  plot_spectrum(type_occurences_ercc1, by = sample_type, CT = T)
-  ```
   ![spectra1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra1.png)
+
+Specify 7 colors for spectrum plotting
+  ```{r}
+  my_colors = c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
+  plot_spectrum(type_occurences, CT = T, legend = T, colors = my_colors)
+  ```
+
+Plot spectrum for each tissue separately
+  ```{r}
+  plot_spectrum(type_occurences, by = tissue, CT = T)
+  ```
   
   ![spectra2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra2.png)
+
+### 96 Mutation Profile
+
+### Extract Signatures
+
+### Fit 96 mutation profiles to known signatures  
+
 
 ### Rainfall plot
 
@@ -118,15 +137,21 @@ A rainfall plot visualizes mutation types and intermutation distance. Rainfall p
 
 Make rainfall plot of all autosomal chromosomes
   ```{r}
-    your_chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1:21]
-    rainfall_plot(vcf_list[[1]], ref_genome = BSgenome.Hsapiens.UCSC.hg19, chromosomes = your_chromosomes)
+  # define autosomal chromosomes
+  chromosomes = seqnames(get(ref_genome))[1:22]
+  # make rainfall plot
+  plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromosomes = chromosomes, cex = 1.5)
+
   ```
+
+  ![rainfall1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall1.png)
   
 Make rainfall plot of chromosome 1
 
   ```{r}
-    your_chromosomes = seqnames(BSgenome.Hsapiens.UCSC.hg19)[1]
-    rainfall_plot(vcf_list[[1]], ref_genome = BSgenome.Hsapiens.UCSC.hg19, chromosomes = your_chromosomes)
+  chromosomes = seqnames(get(ref_genome))[1]
+  plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromosomes = chromosomes[1], cex = 2)
   ```
+  ![rainfall2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall2.png)
 
   
