@@ -8,6 +8,10 @@ plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 
   s1_relative = profile1 / sum(profile1)
   s2_relative = profile2 / sum(profile2)
   diff = s2_relative - s1_relative
+  # residual sum of squares
+  RSS = sum(diff^2)
+  RSS = format(RSS, scientific = T, digits = 3)
+  
   x = cbind(s1_relative, s2_relative, diff)
   colnames(x) = c(profile_names, "Difference")
   
@@ -37,6 +41,7 @@ plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 
     guides(fill=FALSE) + 
     # white background
     theme_bw() +
+    ggtitle(paste("RSS =", RSS)) + 
     # format text
     theme(axis.title.y=element_text(size=12,vjust=1),
           axis.text.y=element_text(size=8),
