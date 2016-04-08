@@ -7,10 +7,14 @@
 Plot relative contribution of 96 trinucleotides}
 \usage{
 plot_96_profile(mut_matrix, colors = c("#DBD7C8", "#B2D39C", "#71C1BA",
-  "#2DAFCE", "#2476B2", "#737E93"))
+  "#2DAFCE", "#2476B2", "#737E93"), ymax = 0.15)
 }
 \arguments{
 \item{mut_matrix}{96 trinucleotide profile matrix}
+
+\item{colors}{6 value color vector}
+
+\item{ymax}{Y axis maximum value, default = 0.015}
 }
 \value{
 96 trinucleotide profile plot

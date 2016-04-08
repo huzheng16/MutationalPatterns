@@ -17,7 +17,7 @@ plot_contribution = function(contribution, index=c(), coord_flip = F)
   colnames(m_contribution) = c("Signature", "Sample", "Contribution")
   
   plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
-    geom_bar(position = "fill", stat="identity")  +  
+    geom_bar(position = "fill", stat="identity", colour="black")  +  
     # make sure sample ordering is correct
     xlim(rev(levels(factor(m_contribution$Sample)))) +
     # ylabel

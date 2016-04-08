@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_to_granges.R
 \name{bed_to_granges}
 \alias{bed_to_granges}
-\title{Read region bed files}
+\title{Read region bed files as a list of GRanges objects}
 \usage{
 bed_to_granges(bed_files, region_names)
 }
@@ -15,6 +15,6 @@ bed_to_granges(bed_files, region_names)
 granges_list List of Granges objects
 }
 \description{
-Read region bed files as a list of Granges objects
+Read region bed files as a list of GRanges objects
 }
 
