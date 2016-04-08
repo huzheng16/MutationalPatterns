@@ -23,7 +23,17 @@ fit_to_signatures = function(mut_matrix, signatures)
     lsq_contribution[,i] = lsq$x
     lsq_reconstructed[,i] = signatures %*% as.matrix(lsq$x) 
   }
-  colnames(lsq_contribution) = colnames(mut_matrix)
+  # add row and col names
+  sample_names = colnames(mut_matrix)
+  signature_names = colnames(signatures)
+  mut_type_names = rownames(signatures)
+  
+  colnames(lsq_contribution) = sample_names
+  rownames(lsq_contribution) = signature_names
+  
+  colnames(lsq_reconstructed) = sample_names
+  rownames(lsq_reconstructed) = mut_type_names
+  
   res = list(lsq_contribution, lsq_reconstructed)
   names(res) = c("contribution", "reconstructed")
   return(res)
