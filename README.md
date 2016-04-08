@@ -111,25 +111,47 @@ Plot spectrum without legend
 
   ![spectra1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra1.png)
 
-Specify 7 colors for spectrum plotting
-  ```{r}
-  my_colors = c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
-  plot_spectrum(type_occurences, CT = T, legend = T, colors = my_colors)
-  ```
 
 Plot spectrum for each tissue separately
   ```{r}
   plot_spectrum(type_occurences, by = tissue, CT = T)
+  ```
+
+Specify 7 colors for spectrum plotting
+  ```{r}
+  my_colors = c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
+  plot_spectrum(type_occurences, CT = T, legend = T, colors = my_colors)
   ```
   
   ![spectra2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra2.png)
 
 ### 96 Mutation Profile
 
+Make 96 trinucleodide mutation count matrix
+  ```{r}
+  mut_matrix = make_mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+  ```
+
+Plot 96 profile of three samples
+  ```{r}
+  plot_96_profile(mut_matrix[,c(1,4,7)])
+  ```
+  ![96_mutation_profile](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/96_profile.png)
+
 ### Extract Signatures
+
+  ![estim_rank](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/estim_rank.png)
+
+  ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures.png)
+
+  ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution.png)
 
 ### Fit 96 mutation profiles to known signatures  
 
+  ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution_cancer_sigs.png)
+  
+
+  ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
 
 ### Rainfall plot
 
