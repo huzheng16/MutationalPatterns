@@ -106,7 +106,7 @@ Plot mutation spectrum with distinction between C>T at CpG sites
 
 Plot spectrum without legend
   ```{r}
-  plot_spectrum(type_occurences, CT = T)
+  plot_spectrum(type_occurences, CT = T, legend = F)
   ```
 
   ![spectra1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra1.png)
@@ -140,16 +140,75 @@ Plot 96 profile of three samples
 
 ### Extract Signatures
 
+Estimate optimal rank for NMF mutation matrix decomposition
+
+  ```{r}
+  estimate_rank(mut_matrix, rank_range = 2:5, nrun = 50)
+  ```
+
   ![estim_rank](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/estim_rank.png)
+
+Extract and plot 3 signatures
+
+  ```{r}
+  nmf_res = extract_signatures(mut_matrix, rank = 3)
+  # provide signature names (optional)
+  colnames(nmf_res$signatures) = c("Signature A", "Signature B" , "Signature C")
+  # plot signatures
+  plot_96_profile(nmf_res$signatures)
+  ```
 
   ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures.png)
 
+Plot signature contribution
+
+  ```{r}
+  # provide signature names (optional)
+  rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
+  # plot signature contribution
+  plot_contribution(nmf_res$contribution, coord_flip = T)
+  ```
+
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution.png)
+
+Compare reconstructed mutation profile with original mutation profile
+
+  ```{r}
+  plot_compare_profiles(mut_matrix[,1], nmf_res$reconstructed[,1], profile_names = c("Original", "Reconstructed"))
+  ```
+
+  ![originalVSreconstructed](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed.png)
 
 ### Fit 96 mutation profiles to known signatures  
 
-  ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution_cancer_sigs.png)
+Download signatures from pan-cancer study Alexandrov et al.
   
+  ```{r}
+  url = "http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt"
+  cancer_signatures = read.table(url, sep = "\t", header = T)
+  # reorder (to make the order of the trinucleotide changes the same)
+  cancer_signatures = cancer_signatures[order(cancer_signatures[,1]),]
+  # only signatures in matrix
+  cancer_signatures = as.matrix(cancer_signatures[,4:33])
+  ```
+
+Fit mutation matrix to cancer signatures. This function finds the optimal linear combination of mutation signatures that most closely reconstructs the mutation matrix by solving nonnegative least-squares constraints problem
+
+  ```{r}
+  fit_res = fit_to_signatures(mut_matrix, cancer_signatures)
+  # select signatures with some contribution
+  select = which(rowSums(fit_res$contribution) > 0)
+  # plot contribution
+  plot_contribution(fit_res$contribution[select,], coord_flip = T)
+  ```
+
+  ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution_cancer_sigs.png)
+
+Compare reconstructed mutation profile of sample 1 using cancer signatures with original profile
+
+  ```{r}
+  plot_compare_profiles(mut_matrix[,1], fit_res$reconstructed[,1], profile_names = c("Original", "Reconstructed \n cancer signatures"))
+  ```
 
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
 
@@ -157,7 +216,7 @@ Plot 96 profile of three samples
 
 A rainfall plot visualizes mutation types and intermutation distance. Rainfall plots can be used to visualize the distribution of mutations along the genome or a subset of chromosomes. The y-axis corresponds to the distance of a mutation with the previous mutation and is log10 transformed. Drop-downs from the plots indicate clusters or "hotspots" of mutations.
 
-Make rainfall plot of all autosomal chromosomes
+Make rainfall plot of sample 1 over all autosomal chromosomes
   ```{r}
   # define autosomal chromosomes
   chromosomes = seqnames(get(ref_genome))[1:22]
@@ -168,7 +227,7 @@ Make rainfall plot of all autosomal chromosomes
 
   ![rainfall1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall1.png)
   
-Make rainfall plot of chromosome 1
+Make rainfall plot of sample 1 over chromosome 1
 
   ```{r}
   chromosomes = seqnames(get(ref_genome))[1]
