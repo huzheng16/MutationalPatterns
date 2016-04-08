@@ -7,7 +7,7 @@
 #' @return Spectrum plot
 #' @export
 
-plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C8", "#B2D39C", "#B3D9CF","#71C1BA", "#2DAFCE", "#2476B2", "#737E93"), legend = T)
+plot_spectrum = function(type_occurences, CT = F, by = "all", colors = spectrum.colors7, legend = T)
 {
   # check color vector length
   if(length(colors) != 7){stop("Color vector length not 7")}
@@ -32,7 +32,7 @@ plot_spectrum = function(type_occurences, CT = F, by = "all", colors = c("#DBD7C
   x$total_mutations = prettyNum(x$total_mutations, big.mark = ",")
   x$total_mutations = paste("N =", as.character(x$total_mutations))
   # define colors for plotting
-  if(CT == F){colors = colors[c(1,2,4:7)]}
+  if(CT == F){colors = colors[c(1,2,3,5:7)]}
   # define positioning of error bars
   x$error_pos = x$mean
   # if C>T stacked bar (distinction between CpG sites and other)

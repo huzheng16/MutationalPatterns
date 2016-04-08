@@ -8,7 +8,7 @@
 #' @export
 
 
-plot_96_profile = function(mut_matrix, colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93"), ymax = 0.15){
+plot_96_profile = function(mut_matrix, colors = spectrum.colors6, ymax = 0.15){
   # Relative contribution
   norm_mut_matrix = apply(mut_matrix, 2, function(x) x / sum(x) )
   # check color vector length
