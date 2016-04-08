@@ -10,8 +10,6 @@
 extract_signatures = function(mut_matrix, rank, nrun = 200)
 {
   mut_matrix = as.matrix(mut_matrix)
-  # add small pseudocount
-  mut_matrix = mut_matrix + 0.0001
   # Calculate nmf
   print("Decomposing matrix using NMF...")
   res = NMF::nmf(mut_matrix, rank = rank, method = "brunet", nrun=nrun, seed = 123456)
@@ -19,6 +17,8 @@ extract_signatures = function(mut_matrix, rank, nrun = 200)
   # Find signatures and contribution of signatures
   signatures = NMF::basis(res)
   contribution = NMF::coef(res)
-  return(list(mut_matrix = mut_matrix, signatures = signatures, contribution = contribution))
+  # Reconstruct mutation matrix
+  reconstructed = signatures %*% contribution
+  return(list(signatures = signatures, contribution = contribution, reconstructed = reconstructed))
 }
 
