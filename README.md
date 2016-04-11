@@ -6,15 +6,18 @@ The MutationalPatterns R package provides a comprehensive set of flexible functi
 
 ### Installation
 
-1. First install and load devtools package
+This package is dependent on R version 3.2.4
+
+Install and load devtools package
 
   ```{r}
   install.packages("devtools")
   library(devtools)
   ```
-2. Install and load MutationalPatterns package
+Install and load MutationalPatterns package
 
   ```{r}
+  options(unzip = 'internal')
   install_github("CuppenResearch/MutationalPatterns")
   library(MutationalPatterns)
   ```
