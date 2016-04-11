@@ -84,12 +84,12 @@ Retrieve the types and context of the base substitution types for all positions 
 
 Count mutation type occurences for one vcf object
   ```{r}
-  type_occurences = count_type_occurences(vcfs[[1]], ref_genome)
+  type_occurences = mut_type_occurences(vcfs[1], ref_genome)
   ```
 
 Count mutation type occurences for all samples in a list of vcf objects
   ```{r}
-  type_occurences = count_type_occurences(vcfs, ref_genome)
+  type_occurences = mut_type_occurences(vcfs, ref_genome)
   ```
 
 ### Mutation spectrum

@@ -16,6 +16,7 @@ muts = get_muts(vcfs[[1]])
 types = get_types(vcfs[[1]])
 mut_context = get_mut_context(vcfs[[1]], ref_genome)
 type_context = get_type_context(vcfs[[1]], ref_genome)
+type_occurences = mut_type_occurences(vcfs[1], ref_genome)
 type_occurences = mut_type_occurences(vcfs, ref_genome)
 
 
