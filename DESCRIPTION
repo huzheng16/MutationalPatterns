@@ -1,12 +1,13 @@
 Package: MutationalPatterns
 Type: Package
-Title: Point mutation patterns
+Title: An R package for exploration of patterns in single nucleotide variant data
 Description: Extract and plot patterns from point mutation catalogues
 Version: 0.1
-Date: 2015-11-04
+Date: 2016-04-08
 Author: Francis Blokzijl
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
+URL: https://github.com/CuppenResearch/MutationalPatterns
 Depends: R (>= 3.2.4), VariantAnnotation, GenomicRanges, IRanges, ggplot2, BSgenome, RColorBrewer, BiocGenerics, gplots, NMF, reshape2, plyr, pracma
 ZipData: NA
 LazyData: false
