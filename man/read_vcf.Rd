@@ -4,7 +4,7 @@
 \alias{read_vcf}
 \title{Read vcf files into list of CollapsedVCF objects}
 \usage{
-read_vcf(vcf_files, sample_names)
+read_vcf(vcf_files, sample_names, genome = "-")
 }
 \arguments{
 \item{vcf_files}{Character vector of vcf file names}
