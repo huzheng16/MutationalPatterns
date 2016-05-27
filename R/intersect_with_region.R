@@ -13,7 +13,7 @@ intersect_with_region = function(vcf, surveyed, region)
   surveyed_length = sum(as.numeric(width(surveyed)))
   
   # Intersect genomic region and surveyed region
-  surveyed_region = intersect(surveyed, region)
+  surveyed_region = intersect(surveyed, region, ignore.strand = T)
   surveyed_region_length = sum(width(surveyed_region))
   
   # Find which mutations lie in surveyed genomic region

@@ -3,9 +3,8 @@
 #' Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account
 #' @param vcf_list A list...
 #' @param region_list List with GRanges objects containing locations of genomic regions
-#' @export
 
-
+# maybe better to order per sample (thus swap i and j)
 genomic_distribution = function(vcf_list, surveyed_list, region_list)
 {
   if(!(length(vcf_list) == length(surveyed_list) )){stop("Vcf list and surveyed list must have the same length")}
@@ -26,8 +25,7 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
     }
   }
   # region as factor
-  df$region = as.factor(df$region)
-  # make sure order is the same as in region_list input (important for plotting later)
-  levels(df$region) = names(region_list)
+  # make sure level order is the same as in region_list input (important for plotting later)
+  df$region = factor(df$region, levels = names(region_list))
   return(df)
 }

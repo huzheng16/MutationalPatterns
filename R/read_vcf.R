@@ -9,13 +9,13 @@
 #' vcf_file_list = list.files("/your_vcf_dir/", full.names = T) 
 #' vcf_list = read_vcf_list(vcf_files_list, sample_names)
 
-read_vcf = function(vcf_files, sample_names)
+read_vcf = function(vcf_files, sample_names, genome = "-")
 {
   if(!(length(vcf_files) == length(sample_names))){stop("Provide the same number of sample names as vcf files")}
   vcf_list = list()
   for(i in 1:length(vcf_files))
   {
-    vcf = readVcf(vcf_files[i], "-")
+    vcf = readVcf(vcf_files[i], genome)
     # add "chr" to chromosomes if not there already
     if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
     vcf = list(vcf)

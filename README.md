@@ -2,19 +2,29 @@
 
 The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
 
+Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
+
+  ```{r}
+  citation("MutationalPatterns")
+  ```
+
+
 ## Getting started
 
 ### Installation
 
-1. First install and load devtools package
+This package is dependent on R version 3.2.4
+
+Install and load devtools package
 
   ```{r}
   install.packages("devtools")
   library(devtools)
   ```
-2. Install and load MutationalPatterns package
+Install and load MutationalPatterns package
 
   ```{r}
+  options(unzip = 'internal')
   install_github("CuppenResearch/MutationalPatterns")
   library(MutationalPatterns)
   ```
@@ -37,7 +47,9 @@ The MutationalPatterns R package provides a comprehensive set of flexible functi
   
 ### Load SNV data
 
-Find package example data
+This package is for the analysis of patterns in SNV data only, therefore the vcf files should not contain indel positions.
+
+Find package SNV example data
   ```{r}
   vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
   ```
@@ -84,12 +96,12 @@ Retrieve the types and context of the base substitution types for all positions 
 
 Count mutation type occurences for one vcf object
   ```{r}
-  type_occurences = count_type_occurences(vcfs[[1]], ref_genome)
+  type_occurences = mut_type_occurences(vcfs[1], ref_genome)
   ```
 
 Count mutation type occurences for all samples in a list of vcf objects
   ```{r}
-  type_occurences = count_type_occurences(vcfs, ref_genome)
+  type_occurences = mut_type_occurences(vcfs, ref_genome)
   ```
 
 ### Mutation spectrum

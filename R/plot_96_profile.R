@@ -33,7 +33,7 @@ plot_96_profile = function(mut_matrix, colors = spectrum.colors6, ymax = 0.15){
           facet_grid(variable ~ substitution) + 
           ylab("Relative contribution") + 
           coord_cartesian(ylim=c(0,ymax)) +
-          scale_y_continuous(breaks=c(0, 0.1)) +
+          scale_y_continuous(breaks=seq(0, ymax, 0.1)) +
           # no legend
           guides(fill=FALSE) + 
           # white background
@@ -43,8 +43,8 @@ plot_96_profile = function(mut_matrix, colors = spectrum.colors6, ymax = 0.15){
                 axis.text.y=element_text(size=8),
                 axis.title.x=element_text(size=12),
                 axis.text.x=element_text(size=5,angle=90,vjust=0.4),
-                strip.text.x=element_text(size=14),
-                strip.text.y=element_text(size=14, angle=360),
+                strip.text.x=element_text(size=9),
+                strip.text.y=element_text(size=9),
                 panel.grid.major.x = element_blank())
   return(plot)
 }
