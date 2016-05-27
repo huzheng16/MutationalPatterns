@@ -2,6 +2,13 @@
 
 The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
 
+Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
+
+  ```{r}
+  citation("MutationalPatterns")
+  ```
+
+
 ## Getting started
 
 ### Installation
@@ -40,7 +47,9 @@ Install and load MutationalPatterns package
   
 ### Load SNV data
 
-Find package example data
+This package is for the analysis of patterns in SNV data only, therefore the vcf files should not contain indel positions.
+
+Find package SNV example data
   ```{r}
   vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
   ```
