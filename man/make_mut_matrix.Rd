@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_mut_matrix.R
 \name{make_mut_matrix}
 \alias{make_mut_matrix}
-\title{Make 96 trinucleotide mutation frequency matrix}
+\title{Make 96 trinucleotide count matrix}
 \usage{
 make_mut_matrix(vcf_list, ref_genome)
 }
@@ -11,5 +11,8 @@ make_mut_matrix(vcf_list, ref_genome)
 }
 \value{
 96 mutation count matrix
+}
+\description{
+Make 96 trinucleotide mutation count matrix
 }
 

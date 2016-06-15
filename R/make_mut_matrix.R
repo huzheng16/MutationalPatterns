@@ -1,6 +1,6 @@
-#' Make 96 trinucleotide mutation frequency matrix
+#' Make 96 trinucleotide count matrix
 #'  
-#' @description
+#' @description Make 96 trinucleotide mutation count matrix
 #' @param vcf_list List of collapsed vcf objects from which one would like to contstruct a count matrix
 #' @return 96 mutation count matrix
 #' @import GenomicRanges
