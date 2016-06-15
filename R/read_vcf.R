@@ -16,8 +16,23 @@ read_vcf = function(vcf_files, sample_names, genome = "-")
   for(i in 1:length(vcf_files))
   {
     vcf = readVcf(vcf_files[i], genome)
+    # remove positions with multiple alternative alleles
+    mult_alt_all = which(lapply(alt(vcf), function(x) length(x) > 1) == TRUE)
+    if(length(mult_alt_all > 0)){
+      warning(paste(sample_names[i],"contains", length(mult_alt_all), "position(s) with multiple alternative alleles. These positions were excluded."))
+      vcf = vcf[-mult_alt_all]
+    }
+    # remove indel positions
+    insertions = which(unlist(lapply(alt(vcf), function(x) width(x))) > 1)
+    deletions = which(width(ref(vcf)) > 1)
+    indels = c(insertions, deletions)
+    if(length(indels > 0)){
+      warning(paste(sample_names[i],"contains", length(indels), "indel position(s). These positions were excluded."))
+      vcf = vcf[-indels]
+    }
+    
     # add "chr" to chromosomes if not there already
-    if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
+    # if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
     vcf = list(vcf)
     names(vcf) = sample_names[i]
     vcf_list = c(vcf_list, vcf)
