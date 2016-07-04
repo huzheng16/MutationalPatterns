@@ -15,8 +15,7 @@ get_type_context = function(vcf, ref_genome)
   # subset mut_context
   y = mut_context[x]
   # change the context of these mutations to reverse complement of the context
-  y = chartr('ATGC', 'TACG', y)
-  y = reverse(y)
+  y = reverse(chartr('ATGC', 'TACG', y))
   # replace subset with reverse complement
   mut_context[x] = y
   # return as named list
