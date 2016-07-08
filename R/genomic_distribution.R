@@ -1,10 +1,11 @@
 #' Find overlaps between mutations and a genomic region
 #' 
 #' Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account
-#' @param vcf_list A list...
+#' @param vcf_list A list with vcf Granges objects
+#' @param surveyed_list A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)
 #' @param region_list List with GRanges objects containing locations of genomic regions
+#' @export
 
-# maybe better to order per sample (thus swap i and j)
 genomic_distribution = function(vcf_list, surveyed_list, region_list)
 {
   if(!(length(vcf_list) == length(surveyed_list) )){stop("Vcf list and surveyed list must have the same length")}

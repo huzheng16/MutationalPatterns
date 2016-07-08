@@ -2,6 +2,7 @@
 #' 
 #' @param df Dataframe result from enrichment_depletion_test()
 #' @return plot
+#' @export
 
 plot_enrichment_depletion = function(df)
 {

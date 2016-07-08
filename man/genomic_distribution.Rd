@@ -7,7 +7,9 @@
 genomic_distribution(vcf_list, surveyed_list, region_list)
 }
 \arguments{
-\item{vcf_list}{A list...}
+\item{vcf_list}{A list with vcf Granges objects}
+
+\item{surveyed_list}{A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)}
 
 \item{region_list}{List with GRanges objects containing locations of genomic regions}
 }

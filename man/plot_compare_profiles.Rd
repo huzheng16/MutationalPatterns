@@ -6,13 +6,25 @@
 \usage{
 plot_compare_profiles(profile1, profile2, profile_names = c("profile 1",
   "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02),
-  colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2",
-  "#737E93"))
+  colors = spectrum.colors6)
+}
+\arguments{
+\item{profile1}{First 96 mutation profile}
+
+\item{profile2}{Second 96 mutation profile}
+
+\item{profile_names}{Character vector with names of the mutations profiles used for plotting, default = c("profile 1", "profile 2")}
+
+\item{profile_ymax}{Maximum value of y-axis (relative contribution) for profile plotting, default = 0.15}
+
+\item{diff_ylim}{Y-axis limits for profile difference plot, default = c(-0.02, 0.02)}
+
+\item{colors}{6 value color vector}
 }
 \value{
-plot
+96 spectrum plot of profile 1, profile 2 and their difference
 }
 \description{
-Compare two 96 mutation profiles
+Plots two 96 mutation profiles and their difference, reports the residual sum of squares (RSS)
 }
 
