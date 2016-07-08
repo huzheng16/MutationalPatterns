@@ -38,13 +38,13 @@ plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", color = spect
   # for each chromosome
   for(i in 1:length(chromosomes))
   {
+    n = length(chr_subset)
+    if(n<=1){next}
     chr_subset = vcf[seqnames(vcf) == chromosomes[i]]
     type = c(type, get_types(chr_subset)[-1])
     loc = c(loc, (start(chr_subset) + chr_cum[i])[-1])
     dist = c(dist, diff(start(chr_subset)))
-    n = dim(chr_subset)[1]-1
-    if(n<1){n=0}
-    chrom = c(chrom, rep(chromosomes[i],n))
+    chrom = c(chrom, rep(chromosomes[i],n-1))
   }
   data = data.frame(type = type, location = loc, distance = dist, chromosome = chrom)
   # make rainfall plot
@@ -65,6 +65,3 @@ plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", color = spect
   # return plot
   return(plot)
 }
-
-
-
