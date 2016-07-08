@@ -7,7 +7,7 @@
 #' @export
 #' @examples 
 #' vcf_file_list = list.files("/your_vcf_dir/", full.names = T) 
-#' vcf_list = read_vcf_list(vcf_files_list, sample_names)
+#' vcf_list = read_vcf_list(vcf_files_list, sample_names, genome = "hg19")
 
 read_vcf = function(vcf_files, sample_names, genome = "-")
 {
@@ -25,14 +25,9 @@ read_vcf = function(vcf_files, sample_names, genome = "-")
       vcf = vcf[-rem]
       warning(length(rem), " position(s) with indels and multiple alternative alleles are removed.")
     }
-    # add "chr" to chromosomes if not there already
-    # if(length(grep("chr", seqlevels(vcf))) == 0){seqlevels(vcf) = paste('chr', seqlevels(vcf), sep = '')}
     vcf = list(vcf)
     names(vcf) = sample_names[i]
     vcf_list = c(vcf_list, vcf)
   }
   return(vcf_list)
 }
-
-
-
