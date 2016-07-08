@@ -19,6 +19,6 @@ Function reads Variant Call Format (VCF) files into a CollapsedVCF object and co
 }
 \examples{
 vcf_file_list = list.files("/your_vcf_dir/", full.names = T) 
-vcf_list = read_vcf_list(vcf_files_list, sample_names)
+vcf_list = read_vcf_list(vcf_files_list, sample_names, genome = "hg19")
 }
 
