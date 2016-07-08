@@ -4,16 +4,21 @@
 \alias{plot_contribution}
 \title{Plot signature contribution}
 \usage{
-plot_contribution(contribution, index = c(), coord_flip = F)
+plot_contribution(contribution, signatures, index = c(), coord_flip = F,
+  mode = "relative")
 }
 \arguments{
+\item{contribution}{Signature contribution matrix}
+
+\item{signatures}{Signature matrix}
+
 \item{index}{optional sample subset parameter}
 
 \item{coord_flip}{Flip X and Y coordinates, default = F}
 
-\item{nmf_res}{NMF result}
+\item{mode}{relative or absolute number of mutations, default = "relative"}
 }
 \description{
-Plot contribution of signatures including unexplained fraction
+Plot contribution of signatures
 }
 
