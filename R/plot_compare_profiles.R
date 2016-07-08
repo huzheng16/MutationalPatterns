@@ -1,13 +1,20 @@
 #' Compare two 96 mutation profiles
 #' 
-#' @return plot
+#' Plots two 96 mutation profiles and their difference, reports the residual sum of squares (RSS)
+#' @param profile1 First 96 mutation profile
+#' @param profile2 Second 96 mutation profile
+#' @param profile_names Character vector with names of the mutations profiles used for plotting, default = c("profile 1", "profile 2")
+#' @param profile_ymax Maximum value of y-axis (relative contribution) for profile plotting, default = 0.15
+#' @param diff_ylim Y-axis limits for profile difference plot, default = c(-0.02, 0.02)
+#' @param colors 6 value color vector
+#' @return 96 spectrum plot of profile 1, profile 2 and their difference
 #' @export
 
-plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 1", "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors = c("#DBD7C8", "#B2D39C", "#71C1BA", "#2DAFCE", "#2476B2", "#737E93"))
+plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 1", "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors = spectrum.colors6)
 {
   s1_relative = profile1 / sum(profile1)
   s2_relative = profile2 / sum(profile2)
-  diff = s2_relative - s1_relative
+  diff = s1_relative - s2_relative
   # residual sum of squares
   RSS = sum(diff^2)
   RSS = format(RSS, scientific = T, digits = 3)
