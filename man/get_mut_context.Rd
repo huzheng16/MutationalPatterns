@@ -7,14 +7,14 @@
 get_mut_context(vcf, ref_genome)
 }
 \arguments{
-\item{vcf}{A CollapsedVCF object}
+\item{vcf}{A Granges object}
 
 \item{ref_genome}{Reference genome}
 }
 \value{
-Character vector the context of the base substitutions
+Character vector with the context of the base substitutions
 }
 \description{
-A function to extract the bases 3' upstream and 5' downstream of the base substitutions
+A function to extract the bases 3' upstream and 5' downstream of the base substitutions from the reference genome
 }
 
