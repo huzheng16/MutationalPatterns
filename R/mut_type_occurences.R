@@ -3,6 +3,7 @@
 #' @param vcf_list A list of CollapsedVCF object
 #' @return Dataframe with counts of each base substitution type for each sample in vcf_list
 #' @export
+#' @import BiocGenerics
 
 mut_type_occurences = function(vcf_list, ref_genome)
 {  
@@ -17,8 +18,8 @@ mut_type_occurences = function(vcf_list, ref_genome)
     CT_muts = which(types == "C>T")
     CT_context = get_type_context(vcf[CT_muts], ref_genome)[[2]]
     CpG = c("ACG", "CCG", "TCG", "GCG")
-    CT_at_CpG = sum((CT_context %in% CpG)*1)
-    CT_at_other = sum(!(CT_context %in% CpG)*1)
+    CT_at_CpG = sum(!(is.na(BiocGenerics::match(CT_context,CpG))))
+    CT_at_other = length(CT_muts) - CT_at_CpG
     counts = as.vector(table(types))
     counts = c(counts, CT_at_CpG, CT_at_other)
     df = rbind(df,counts)
