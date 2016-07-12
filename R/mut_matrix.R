@@ -1,12 +1,13 @@
-#' Make 96 trinucleotide count matrix
+#' Make mutation count matrix of 96 trinucleotides 
 #'  
 #' @description Make 96 trinucleotide mutation count matrix
-#' @param vcf_list List of collapsed vcf objects from which one would like to contstruct a count matrix
+#' @param vcf_list List of collapsed vcf objects
+#' @param ref_genome BSGenome reference genome object 
 #' @return 96 mutation count matrix
 #' @import GenomicRanges
 #' @export
 
-make_mut_matrix = function(vcf_list, ref_genome)
+mut_matrix = function(vcf_list, ref_genome)
 {
   df = data.frame()
   for(vcf in vcf_list)
