@@ -7,22 +7,20 @@
 #' @return 96 trinucleotide profile plot
 #' @export
 
-
-plot_96_profile = function(mut_matrix, colors = spectrum.colors6, ymax = 0.15){
+plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
+{
   # Relative contribution
   norm_mut_matrix = apply(mut_matrix, 2, function(x) x / sum(x) )
-  # check color vector length
-  if(length(colors) != 6){stop("Color vector length not 6")}
-  substitutions = c('C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G')
-  index = c(rep(1,1,16), rep(2,1,16), rep(3,1,16), rep(4,1,16), rep(5,1,16), rep(6,1,16))
-  # Context
-  C_triplets = c("ACA", "ACC", "ACG", "ACT", "CCA", "CCC", "CCG", "CCT", "GCA", "GCC", "GCG", "GCT", "TCA", "TCC", "TCG", "TCT") 
-  T_triplets = c("ATA", "ATC", "ATG", "ATT", "CTA", "CTC", "CTG", "CTT", "GTA", "GTC", "GTG", "GTT", "TTA", "TTC", "TTG", "TTT") 
-  context = c(rep(C_triplets,3), rep(T_triplets,3))
-  # Replace mutated base with dot
-  substring(context,2,2) = "."
+  # Check color vector length
+  # Colors for plotting
+  if(missing(colors)){colors=COLORS6}
+  if(length(colors) != 6){stop("Provide colors vector with length 6")}
+  context = TRIPLETS_96
+  substitution = rep(SUBSTITUTIONS, each=16)
+  # Replace mutated base with dot to get context
+  substring(context, 2, 2) = "."
   # Construct dataframe
-  df = data.frame(substitution = substitutions[index], context = context)
+  df = data.frame(substitution = substitution, context = context)
   rownames(norm_mut_matrix) = NULL
   df2 = cbind(df, as.data.frame(norm_mut_matrix))
   df3 = melt(df2, id.vars = c("substitution", "context"))
