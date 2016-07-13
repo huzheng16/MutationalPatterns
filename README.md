@@ -2,7 +2,20 @@
 
 The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
 
+NEW RELEASE: 
+* Faster vcf file read
+* Automatic check and exclusion of positions in vcf with indels and/or multiple alternative alleles 
+* Default plotting colours to standard
+
+NEW FUNCTIONALITIES
+* Function to make chromosome names uniform according to e.g. UCSC standard
+* Transcriptional strand bias analysis
+* Signature extraction (NMF) with transcriptional strand information
+* Enrichment/depletion test for genomic annotations
+
 Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
+
+PAPER ON bioRxiv
 
   ```{r}
   citation("MutationalPatterns")
@@ -13,7 +26,7 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
 
 ### Installation
 
-This package is dependent on R version 3.2.4
+This package is dependent on R version 3.3.1
 
 Install and load devtools package
 
@@ -45,11 +58,11 @@ Install and load MutationalPatterns package
   library(ref_genome, character.only = T)
   ```
   
-### Load SNV data
+### Load base substitution data
 
 This package is for the analysis of patterns in SNV data only, therefore the vcf files should not contain indel positions.
 
-Find package SNV example data
+Find package base substitution example/test data
   ```{r}
   vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
   ```
@@ -62,12 +75,30 @@ Load a single vcf file
 Load a list of vcf files
   ```{r}
   sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
-  vcfs = read_vcf(vcf_files, sample_names)
+  vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
   ```
 
 Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissue type, mutant or wild type
   ```{r}
   tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "liver", "liver", "liver")
+  ```
+
+### Make chromosome names uniform
+
+Check if chromosome names in vcf(s) and reference genome are the same
+  ```{r}
+  all(seqlevels(vcfs[[1]]) %in% seqlevels(get(ref_genome)))
+  ```
+
+If not, rename the seqlevels to the UCSC standard
+  ```{r}
+  vcfs = lapply(vcfs, function(x) rename_chrom(x))
+  ```
+  
+Select autosomal chromosomes
+  ```{r}
+  auto = extractSeqlevelsByGroup(species="Homo_sapiens", style="UCSC", group="auto")
+  vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
 ##  Analyses
@@ -106,7 +137,7 @@ Count mutation type occurences for all samples in a list of vcf objects
 
 ### Mutation spectrum
 
-Plot mutation spectrum over all samples. Plottes is the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
+Plot mutation spectrum over all samples. Plots the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
   ```{r}
   plot_spectrum(type_occurences)
   ```
@@ -141,7 +172,7 @@ Specify 7 colors for spectrum plotting
 
 Make 96 trinucleodide mutation count matrix
   ```{r}
-  mut_matrix = make_mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+  mut_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
   ```
 
 Plot 96 profile of three samples
@@ -177,11 +208,22 @@ Plot signature contribution
   ```{r}
   # provide signature names (optional)
   rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
-  # plot signature contribution
-  plot_contribution(nmf_res$contribution, coord_flip = T)
+  # plot relative signature contribution
+  plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
+  # plot absolute signature contribution
+  plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
   ```
 
-  ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution.png)
+  ![contribution1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution1.png)
+  
+    ```{r}
+  # plot contribution of signatures for subset of samples with index parameter
+  plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute", index = c(1,2))
+  # flip X and Y coordinates
+  plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute", coord_flip = T)
+  ```
+  
+  ![contribution2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution2.png)
 
 Compare reconstructed mutation profile with original mutation profile
 
