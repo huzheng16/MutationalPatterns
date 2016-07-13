@@ -9,7 +9,7 @@
 #' @param vcf CollapsedVCF object
 #' @param ref_genome BSgenome reference genome object
 #' @param title Optional plot title
-#' @param color Vector of 6 colors used for plotting
+#' @param colors Vector of 6 colors used for plotting
 #' @param chrom Vector of chromosome/contig names of the reference genome to be plotted
 #' @param cex Point size
 #' @param cex_text Text size
@@ -17,10 +17,12 @@
 #' @return Rainfall plot
 #' @export
 
-plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", color = spectrum.colors6, cex = 2.5, cex_text = 3, ylim = 1e+08)
+plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5, cex_text = 3, ylim = 1e+08)
 {
+  # if colors parameter not provided, set to default colors
+  if(missing(colors)){colors = COLORS6}
   # check color vector length
-  if(length(color) != 6){stop("Color vector length not 6")}
+  if(length(colors) != 6){stop("colors vector length not 6")}
   # get chromosome lengths of reference genome
   chr_length = seqlengths(get(ref_genome))
   # subset
@@ -55,7 +57,7 @@ plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", color = spect
     xlab("Genomic Location") +
     ylab("Genomic Distance") +
     scale_y_log10() +
-    scale_colour_manual(values=color) +
+    scale_colour_manual(values=colors) +
     scale_x_continuous(expand = c(0,0), limits=c(0, max(chr_cum))) +
     ggtitle(title) +
     theme_bw() +

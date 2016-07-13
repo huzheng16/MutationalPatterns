@@ -4,8 +4,8 @@
 \alias{plot_rainfall}
 \title{Plot genomic rainfall}
 \usage{
-plot_rainfall(vcf, ref_genome, chromosomes, title = "",
-  color = spectrum.colors6, cex = 2.5, cex_text = 3, ylim = 1e+08)
+plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
+  cex_text = 3, ylim = 1e+08)
 }
 \arguments{
 \item{vcf}{CollapsedVCF object}
@@ -14,7 +14,7 @@ plot_rainfall(vcf, ref_genome, chromosomes, title = "",
 
 \item{title}{Optional plot title}
 
-\item{color}{Vector of 6 colors used for plotting}
+\item{colors}{Vector of 6 colors used for plotting}
 
 \item{cex}{Point size}
 

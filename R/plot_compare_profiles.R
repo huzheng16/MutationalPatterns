@@ -10,8 +10,10 @@
 #' @return 96 spectrum plot of profile 1, profile 2 and their difference
 #' @export
 
-plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 1", "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors = spectrum.colors6)
+plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 1", "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors)
 {
+  # if colors parameter not provided, set to default colors
+  if(missing(colors)){colors = COLORS6}
   s1_relative = profile1 / sum(profile1)
   s2_relative = profile2 / sum(profile2)
   diff = s1_relative - s2_relative
