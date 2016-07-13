@@ -1,9 +1,10 @@
 #' Read vcf files into list of CollapsedVCF objects
 #' 
-#' Function reads Variant Call Format VCF files into a CollapsedVCF object and combines them in a list object
+#' Function reads Variant Call Format VCF files into a GRanges object and combines them in a list object
 #' @param vcf_files Character vector of vcf file names
 #' @param sample_names Character vector of sample names
-#' @return List of CollapsedVCF objects
+#' @param genome A character or Seqinfo object
+#' @return List of GRanges objects
 #' @export
 #' @import BiocGenerics
 

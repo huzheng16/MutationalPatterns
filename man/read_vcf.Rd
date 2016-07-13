@@ -10,15 +10,13 @@ read_vcf(vcf_files, sample_names, genome = "-")
 \item{vcf_files}{Character vector of vcf file names}
 
 \item{sample_names}{Character vector of sample names}
+
+\item{genome}{A character or Seqinfo object}
 }
 \value{
-List of CollapsedVCF objects
+List of GRanges objects
 }
 \description{
-Function reads Variant Call Format (VCF) files into a CollapsedVCF object and combines them in a list object
-}
-\examples{
-vcf_file_list = list.files("/your_vcf_dir/", full.names = T) 
-vcf_list = read_vcf_list(vcf_files_list, sample_names, genome = "hg19")
+Function reads Variant Call Format VCF files into a GRanges object and combines them in a list object
 }
 
