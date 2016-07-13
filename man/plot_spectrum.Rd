@@ -4,17 +4,18 @@
 \alias{plot_spectrum}
 \title{Plot point mutation spectrum}
 \usage{
-plot_spectrum(type_occurences, CT = F, by = "all",
-  colors = spectrum.colors7, legend = T)
+plot_spectrum(type_occurences, CT = F, by, colors, legend = T)
 }
 \arguments{
 \item{type_occurences}{Type occurences matrix}
 
-\item{CT}{Optional distinction between C>T at CpG}
+\item{CT}{Distinction between C>T at CpG and C>T at other sites, default = F}
 
 \item{by}{Optional grouping variable}
 
 \item{colors}{Optional color vector with 7 values}
+
+\item{legend}{Plot legend, default = T}
 }
 \value{
 Spectrum plot

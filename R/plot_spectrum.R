@@ -1,20 +1,26 @@
 #' Plot point mutation spectrum
 #'    
 #' @param type_occurences Type occurences matrix
-#' @param CT Optional distinction between C>T at CpG
+#' @param CT Distinction between C>T at CpG and C>T at other sites, default = F
 #' @param by Optional grouping variable
 #' @param colors Optional color vector with 7 values
+#' @param legend Plot legend, default = T
 #' @return Spectrum plot
 #' @export
 
-plot_spectrum = function(type_occurences, CT = F, by = "all", colors = spectrum.colors7, legend = T)
+plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
 {
+  # if colors parameter not provided, set to default colors
+  if(missing(colors)){colors = COLORS7}
   # check color vector length
-  if(length(colors) != 7){stop("Color vector length not 7")}
-  if(CT == F){type_occurences = type_occurences[,1:6] }
-  if(CT == T){type_occurences = type_occurences[,c(1:2,8,7,4:6)]}
+  if(length(colors) != 7){stop("Colors parameter: supply color vector with length 7")}
+  # distinction between C>T at CpG or not
+  if(CT == FALSE){type_occurences = type_occurences[,1:6] }
+  if(CT == TRUE){type_occurences = type_occurences[,c(1:2,8,7,4:6)]}
   # relative contribution per sample
   df2 = type_occurences / rowSums(type_occurences)
+  # if grouping variable not provided, set to "all"
+  if(missing(by)){by="all"}
   # add by info to df
   df2$by = by
   # reshape
@@ -60,6 +66,6 @@ plot_spectrum = function(type_occurences, CT = F, by = "all", colors = spectrum.
   if(length(by) == 1){plot = plot + facet_wrap( ~ total_mutations)}
   else{plot = plot + facet_wrap(by ~ total_mutations)}
   # legend
-  if(legend == F){plot = plot + theme(legend.position="none")}
+  if(legend == FALSE){plot = plot + theme(legend.position="none")}
   return(plot)
 } 
