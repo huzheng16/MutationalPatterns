@@ -1,16 +1,16 @@
-#' Read region bed files as a list of GRanges objects
+#' Read bed files as a list of GRanges objects
 #' 
-#' Read region bed files as a list of GRanges objects
+#' Read bed files as a list of GRanges objects
 #' @param bed_files Character vector with bed files
-#' @param region_names Character vector with names of regions
+#' @param names Character vector with names of regions in bed files
 #' @return granges_list List of Granges objects
 #' @import GenomicRanges
 #' @export
 
 
-bed_to_granges = function(bed_files, region_names)
+bed_to_granges = function(bed_files, names)
 {
-  if(!(length(bed_files) == length(region_names))) stop("Provide the same number of region names as bed files")
+  if(!(length(bed_files) == length(region_names))) stop("Provide the same number of names as bed files")
   granges_list = list()
   for(i in 1:length(bed_files))
   {

@@ -2,19 +2,19 @@
 % Please edit documentation in R/bed_to_granges.R
 \name{bed_to_granges}
 \alias{bed_to_granges}
-\title{Read region bed files as a list of GRanges objects}
+\title{Read bed files as a list of GRanges objects}
 \usage{
-bed_to_granges(bed_files, region_names)
+bed_to_granges(bed_files, names)
 }
 \arguments{
 \item{bed_files}{Character vector with bed files}
 
-\item{region_names}{Character vector with names of regions}
+\item{names}{Character vector with names of regions in bed files}
 }
 \value{
 granges_list List of Granges objects
 }
 \description{
-Read region bed files as a list of GRanges objects
+Read bed files as a list of GRanges objects
 }
 
