@@ -216,7 +216,7 @@ Plot signature contribution
 
   ![contribution1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution1.png)
   
-    ```{r}
+  ```{r}
   # plot contribution of signatures for subset of samples with index parameter
   plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute", index = c(1,2))
   # flip X and Y coordinates
@@ -288,18 +288,3 @@ Make rainfall plot of sample 1 over chromosome 1
   plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromosomes = chromosomes[1], cex = 2)
   ```
   ![rainfall2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall2.png)
-
-## Things to do
-
-1 Genomic distribution
-  - genomic regions bed input
-  - surveyed area??
-  
-2 Strand bias analysis 
-  - get gene bodies for each ref genome
-
-
-
-
-
-  
