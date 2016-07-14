@@ -9,7 +9,7 @@ Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
 Depends: R (>= 3.3.1), VariantAnnotation, GenomicRanges, ggplot2, RColorBrewer, gplots, NMF, reshape2, plyr, pracma
-biocViews: VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
+biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false
 RoxygenNote: 5.0.1
