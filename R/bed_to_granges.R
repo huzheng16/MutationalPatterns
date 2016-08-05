@@ -10,7 +10,7 @@
 
 bed_to_granges = function(bed_files, names)
 {
-  if(!(length(bed_files) == length(region_names))) stop("Provide the same number of names as bed files")
+  if(!(length(bed_files) == length(names))) stop("Provide the same number of names as bed files")
   granges_list = list()
   for(i in 1:length(bed_files))
   {
@@ -23,7 +23,7 @@ bed_to_granges = function(bed_files, names)
     end = bed[,3]
     new_bed = GRanges(chr, IRanges(start,end))  
     new_bed = list(new_bed)
-    names(new_bed) = region_names[i]
+    names(new_bed) = names[i]
     granges_list = c(granges_list, new_bed)
   }
   return(granges_list)
