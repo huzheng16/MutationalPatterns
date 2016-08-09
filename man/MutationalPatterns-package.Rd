@@ -3,28 +3,26 @@
 \alias{MutationalPatterns}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+MutationalPatterns: an integrative R package for studying patterns in base substitution catalogues
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+This package evaluates a wide range of mutational patterns, including: base substitution types, sequence context, mutational signatures, genomic distribution, association with genomic features and transcriptional strand bias.
 }
 \details{
 \tabular{ll}{
-Package: \tab MutationalPatterns\cr
+Package: MutationalPatterns
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2015-02-09\cr
-License: \tab What license is it under?\cr
+License: MIT + file LICENSE
 }
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Who wrote it
+Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Francis Blokzijl, UMC Utrecht <f.blokzijl@umcutrecht.nl>
+
 }
 \references{
 ~~ Literature or other references for background information ~~
@@ -33,9 +31,9 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 ~~ documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+\url{https://github.com/CuppenResearch/MutationalPatterns}
 }
 \examples{
 ~~ simple examples of the most important functions ~~
 }
+s

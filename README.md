@@ -22,13 +22,9 @@ PAPER ON bioRxiv
   ```
 
 
-# Table of Contents
-1. [Installation](#installation)
-
-
 ## Getting started
 
-### Installation <a name="installation"></a>
+### Installation
 
 This package is dependent on R version 3.3.1
 
@@ -285,6 +281,13 @@ Find gene definitions for your reference genome.
   library("TxDb.Hsapiens.UCSC.hg19.knownGene")
   genes_hg19 = genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
   ```
+  
+Get transcriptional strand information for all positions in vcf 1. "Base substitions on the same strand as the gene definitions are considered. "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand.
+
+  ```{r}
+  get_strand(vcfs[[1]], genes_hg19)
+  ```
+
 Make mutation count matrix with transcriptional strand information (96 trinucleotides * 2 strands = 192 features). NB: only those mutations that are located within gene bodies are counted.
 
   ```{r}

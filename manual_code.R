@@ -122,8 +122,6 @@ get_strand(vcfs[[1]], genes_hg19)
 # make mutation count matrix with transcriptional information
 mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 
-
-
 strand_counts = strand_occurences(mut_mat_s, by=tissue)
 strand_plot = plot_strand(strand_counts , mode = "relative")
 strand_bias = strand_bias_test(strand_counts)
@@ -131,12 +129,9 @@ strand_bias_plot = plot_strand_bias(strand_bias)
 
 grid.arrange(strand_plot, strand_bias_plot)
 
-# functie omschrijvingen op orde maken
-
-
 # Extract signatures with strand bias
 
-# extract 3 signatures
+# extract 2 signatures
 nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
 
 # provide signature names (optional)
