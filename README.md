@@ -22,6 +22,10 @@ PAPER ON bioRxiv
   ```
 
 
+# Table of Contents
+1. [Installaion] Installation
+
+
 ## Getting started
 
 ### Installation
