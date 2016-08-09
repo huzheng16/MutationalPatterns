@@ -23,7 +23,7 @@ PAPER ON bioRxiv
 
 
 # Table of Contents
-1. [Installaion] Installation
+1. [Installation] Installation
 
 
 ## Getting started
