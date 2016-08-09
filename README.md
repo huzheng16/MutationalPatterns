@@ -23,12 +23,12 @@ PAPER ON bioRxiv
 
 
 # Table of Contents
-1. [Installation](#Installation)
+1. [Installation](#installation)
 
 
 ## Getting started
 
-### Installation
+### Installation <a name="installation"></a>
 
 This package is dependent on R version 3.3.1
 
