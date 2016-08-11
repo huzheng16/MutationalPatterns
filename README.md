@@ -443,6 +443,8 @@ Test for an enrichment or depletion of mutations in your defined genomic regions
   plot_enrichment_depletion(distr_test)
   ```
 
+  ![distr](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/genomic_distribution.png)
+  
 
 
 
