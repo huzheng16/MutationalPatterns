@@ -22,7 +22,7 @@ PAPER ON bioRxiv
   ```
 
 
-## Getting started
+# Getting started
 
 ### Installation
 
@@ -102,9 +102,9 @@ Select autosomal chromosomes
   vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
-##  Analyses
+#Analyses
 
-### Mutation types
+## Mutation types
 
 Retrieve base substitutions from vcf object as "REF>ALT"
   ```{r}
@@ -136,7 +136,7 @@ Count mutation type occurences for all samples in a list of vcf objects
   type_occurences = mut_type_occurences(vcfs, ref_genome)
   ```
 
-### Mutation spectrum
+## Mutation spectrum
 
 Plot mutation spectrum over all samples. Plots the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
   ```{r}
@@ -169,7 +169,7 @@ Specify 7 colors for spectrum plotting
   
   ![spectra2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra2.png)
 
-### 96 Mutation Profile
+## 96 Mutation Profile
 
 Make 96 trinucleodide mutation count matrix
   ```{r}
@@ -182,7 +182,7 @@ Plot 96 profile of three samples
   ```
   ![96_mutation_profile](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/96_profile.png)
 
-### Extract Signatures
+## Extract Signatures
 
 Estimate optimal rank for NMF mutation matrix decomposition
 
@@ -269,7 +269,7 @@ Compare reconstructed mutation profile of sample 1 using cancer signatures with 
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
 
 
-### Transcriptional strand bias analysis
+## Transcriptional strand bias analysis
 
 For the mutations within genes it can be determined whether the mutation is on the transcribed or non-transcribed strand, which is interesting to study involvement of transcription-coupled repair. To this end, it is determined whether the "C" or "T" base (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition. Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, since the gene definitions report the coding or sense strand, which is untranscribed. No strand information is reported for base substitution that overlap with more than one gene body.
 
@@ -332,7 +332,7 @@ Perform poisson test for strand asymmetry significance testing
   ![signatures_strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures_strand.png)  
 
 
-### Rainfall plot
+## Rainfall plot
 
 A rainfall plot visualizes mutation types and intermutation distance. Rainfall plots can be used to visualize the distribution of mutations along the genome or a subset of chromosomes. The y-axis corresponds to the distance of a mutation with the previous mutation and is log10 transformed. Drop-downs from the plots indicate clusters or "hotspots" of mutations.
 
@@ -356,9 +356,9 @@ Make rainfall plot of sample 1 over chromosome 1
   ![rainfall2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall2.png)
   
   
-### Genomic distribution - enrichment/depletion of mutations in genomic regions
+## Genomic distribution - enrichment/depletion of mutations in genomic regions
 
-## Example: regulation annotation data from Ensembl using biomaRt
+### Example: regulation annotation data from Ensembl using biomaRt
 
 Install and load biomaRt package
 
