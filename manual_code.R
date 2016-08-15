@@ -137,16 +137,17 @@ nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
 # provide signature names (optional)
 colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
 # plot signatures with 192 features
-plot_192_profile(nmf_res_strand$signatures)
+sig_stranded = plot_192_profile(nmf_res_strand$signatures)
 
 # provide signature names (optional)
 rownames(nmf_res_strand$contribution) = c("Signature A", "Signature B")
 # plot signature contribution
 plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_flip = T, mode = "absolute")
 
+# plot strand bias per mutation type for each signature with significance test
+sig_strand_bias_plot = plot_signature_strand_bias(nmf_res_strand$signatures)
 
-
-
+grid.arrange(sig_stranded, sig_strand_bias_plot, ncol=2, widths=c(3,1))
 
 # ------ RAINFALL PLOT ------
 
@@ -159,25 +160,94 @@ plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromo
 plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromosomes = chromosomes[1], cex = 2)
 
 
+
+
 # ------ GENOMIC DISTRIBUTION -------
 
-bed_files = list.files("~/Documents/Organoids/ASC_multi_tissues/data/genomic_regions/", full.names = T)
-region_names = c("H3k27ac", "H3K9me3", "early", "intermediate", "late", "exonic")
-regions = bed_to_granges(bed_files, names = region_names)
-
-surveyed_files = list.files("~/Documents/Organoids/ASC_multi_tissues/data/surveyed/", full.names = T)
-surveyed_consensus = bed_to_granges(surveyed_files[1], "surveyed_consensus")
-surveyed_list = c(surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus, surveyed_consensus)
 
 
+
+# Use regulation annotation data from ENCODE
+
+source("https://bioconductor.org/biocLite.R")
+biocLite("biomaRt")
+library(biomaRt)
+
+listEnsembl()
+listMarts()
+mart="ensembl"
+# list datasets available from ensembl for hg19 = GrCh37
+listDatasets(useEnsembl(biomart="regulation", GRCh = 37))
+# Homo sapiens Regulatory Segments
+regulation_segmentation = useEnsembl(biomart="regulation", dataset="hsapiens_segmentation_feature", GRCh = 37)
+regulation_regulatory = useEnsembl(biomart="regulation", dataset="hsapiens_regulatory_feature", GRCh = 37)
+regulation_annotated = useEnsembl(biomart="regulation", dataset="hsapiens_annotated_feature", GRCh = 37)
+# list all possible filters
+listFilters(regulation_segmentation)
+listFilters(regulation_regulatory)
+# list all posible output attributes
+listAttributes(regulation_regulatory)
+# list all filter options for a specific attribute
+filterOptions("feature_type_name", regulation_segmentation)
+filterOptions("regulatory_feature_type_name", regulation_regulatory)
+filterOptions("annotated_feature_type_name", regulation_annotated)
+
+# Multicell regulatory features
+
+# CTCF Binding Site
+CTCF = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name', 'cell_type_name'), 
+              filters = "feature_type_name", 
+              values = "CTCF enriched", 
+              mart = regulation_segmentation)
+
+CTCF_g = reduce(GRanges(CTCF$chromosome_name, IRanges(CTCF$chromosome_start, CTCF$chromosome_end))) 
+
+
+CTCF2 = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name', 'cell_type_name'), 
+              filters = "regulatory_feature_type_name", 
+              values = "CTCF Binding Site", 
+              mart = regulation_regulatory)
+
+CTCF2_g = reduce(GRanges(CTCF2$chromosome_name, IRanges(CTCF2$chromosome_start, CTCF2$chromosome_end))) 
+
+
+promoter = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+                 filters = "regulatory_feature_type_name", 
+                 values = "Promoter", 
+                 mart = regulation_regulatory)
+promoter_g = reduce(GRanges(promoter$chromosome_name, IRanges(promoter$chromosome_start, promoter$chromosome_end)))
+
+open = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+              filters = "regulatory_feature_type_name", 
+              values = "Open chromatin", 
+              mart = regulation_regulatory)
+open_g = reduce(GRanges(open$chromosome_name, IRanges(open$chromosome_start, open$chromosome_end))) 
+
+promoter_flanking = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+              filters = "regulatory_feature_type_name", 
+              values = "Promoter Flanking Region", 
+              mart = regulation_regulatory)
+promoter_flanking_g = reduce(GRanges(promoter_flanking$chromosome_name, IRanges(promoter_flanking$chromosome_start, promoter_flanking$chromosome_end))) 
+
+TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+                          filters = "regulatory_feature_type_name", 
+                          values = "TF binding site", 
+                          mart = regulation_regulatory)
+TF_binding_g = reduce(GRanges(TF_binding$chromosome_name, IRanges(TF_binding$chromosome_start, TF_binding$chromosome_end))) 
+
+
+
+regions = list(promoter_g, promoter_flanking_g, CTCF_g, open_g, TF_binding_g)
+names(regions) = c("Promoter", "Promoter flanking", "CTCF", "Open chromatin", "TF binding")
 # rename chromosomes to UCSC standard
-vcfs = lapply(vcfs, function(x) rename_chrom(x))
 regions = lapply(regions, function(x) rename_chrom(x))
-surveyed_list = lapply(surveyed_list, function(x) rename_chrom(x))
 
-# GENOMIC DISTRIBUTION
+# GENOMIC DISTRIBUTION TESTING
 
-x = genomic_distribution(vcfs[1:2], surveyed_list[1:2], regions[1:2])
-df = enrichment_depletion_test(x)
-plot_enrichment_depletion(df)
-
+# for each sample calculate the number of observed and expected number of mutations in each genomic regions
+distr = genomic_distribution(vcfs, surveyed_list, regions)
+# test for significant enrichment or depletion in the genomic regions
+# samples can be collapsed into groups, here: tissue type
+distr_test = enrichment_depletion_test(distr, by = tissue)
+# plot enrichment depletion test results
+plot_enrichment_depletion(distr_test)
