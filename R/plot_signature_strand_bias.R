@@ -42,7 +42,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     }
   }
   
-  stats_per_type = data.frame(Signature = c(rep("Signature A",6), rep("Signature B",6)), type = rep(substitutions,2), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
+  stats_per_type = data.frame(Signature = c(rep("Signature A",6), rep("Signature B",6)), type = rep(SUBSTITUTIONS,2), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
   stats_per_type = adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
   
   ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
