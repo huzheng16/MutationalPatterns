@@ -439,7 +439,7 @@ Combine all genomic regions (GRanges objects) in a named list.
   regions = lapply(regions, function(x) rename_chrom(x))
   ```
 
-## Test for significant depletion of enrichment in genomic regions
+## Test for significant depletion or enrichment in genomic regions
 
 It is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you would not include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
 
