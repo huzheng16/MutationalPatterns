@@ -8,7 +8,7 @@ Author: Francis Blokzijl
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
-Depends: R (>= 3.3.1), BiocInstaller, VariantAnnotation, GenomicRanges, ggplot2, RColorBrewer, gplots, NMF, reshape2, plyr, pracma
+Depends: R (>= 3.3.1), BiocInstaller, VariantAnnotation, GenomicRanges, ggplot2, RColorBrewer, gplots, NMF, reshape2, plyr, pracma, gridExtra
 biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false
