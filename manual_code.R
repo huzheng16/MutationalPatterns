@@ -63,15 +63,15 @@ plot_96_profile(mut_matrix[,c(1,4,7)])
 
 # estimate rank
 estimate_rank(mut_matrix, rank_range = 2:5, nrun = 50)
-# extract 3 signatures
-nmf_res = extract_signatures(mut_matrix, rank = 3)
+# extract 2 signatures
+nmf_res = extract_signatures(mut_matrix, rank = 2)
 # provide signature names (optional)
-colnames(nmf_res$signatures) = c("Signature A", "Signature B" , "Signature C")
+colnames(nmf_res$signatures) = c("Signature A", "Signature B")
 # plot signatures
 plot_96_profile(nmf_res$signatures)
 
 # provide signature names (optional)
-rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
+rownames(nmf_res$contribution) = c("Signature A", "Signature B")
 
 # plot signature contribution
 p1 = plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
@@ -190,25 +190,17 @@ listAttributes(regulation_regulatory)
 # list all filter options for a specific attribute
 filterOptions("feature_type_name", regulation_segmentation)
 filterOptions("regulatory_feature_type_name", regulation_regulatory)
-filterOptions("annotated_feature_type_name", regulation_annotated)
 
 # Multicell regulatory features
 
 # CTCF Binding Site
+
 CTCF = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name', 'cell_type_name'), 
-              filters = "feature_type_name", 
-              values = "CTCF enriched", 
-              mart = regulation_segmentation)
-
-CTCF_g = reduce(GRanges(CTCF$chromosome_name, IRanges(CTCF$chromosome_start, CTCF$chromosome_end))) 
-
-
-CTCF2 = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name', 'cell_type_name'), 
               filters = "regulatory_feature_type_name", 
               values = "CTCF Binding Site", 
               mart = regulation_regulatory)
 
-CTCF2_g = reduce(GRanges(CTCF2$chromosome_name, IRanges(CTCF2$chromosome_start, CTCF2$chromosome_end))) 
+CTCF_g = reduce(GRanges(CTCF$chromosome_name, IRanges(CTCF$chromosome_start, CTCF$chromosome_end))) 
 
 
 promoter = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
@@ -243,6 +235,13 @@ names(regions) = c("Promoter", "Promoter flanking", "CTCF", "Open chromatin", "T
 regions = lapply(regions, function(x) rename_chrom(x))
 
 # GENOMIC DISTRIBUTION TESTING
+
+# Provide regions that are surveyed/callable
+surveyed_file = list.files(system.file("bed", package="MutationalPatterns"), full.names = T)
+# read bed file as grange object
+surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+# for this example we use the same surveyed file for each sample
+surveyed_list= rep(surveyed_list, 9)
 
 # for each sample calculate the number of observed and expected number of mutations in each genomic regions
 distr = genomic_distribution(vcfs, surveyed_list, regions)

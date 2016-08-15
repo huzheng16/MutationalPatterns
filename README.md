@@ -439,10 +439,20 @@ Combine all genomic regions (GRanges objects) in a named list.
   regions = lapply(regions, function(x) rename_chrom(x))
   ```
 
-## Test for significant depletion of enrichment
+## Test for significant depletion of enrichment in genomic regions
 
-Test for an enrichment or depletion of mutations in your defined genomic regions using a binomial test. For this test, the chance of observing a mutation is calculated as the total number of mutations, divided by the total number of surveyed bases. Therefore, it is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you don't include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
+It is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you would not include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
 
+  ```{r}
+  # Read example file with surveyed/callable regions
+  surveyed_file = list.files(system.file("bed", package="MutationalPatterns"), full.names = T)
+  # read bed file as granges object
+  surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+  # for this example we use the same surveyed file for each sample
+  surveyed_list= rep(surveyed_list, 9)
+  ```
+Test for an enrichment or depletion of mutations in your defined genomic regions using a binomial test. For this test, the chance of observing a mutation is calculated as the total number of mutations, divided by the total number of surveyed bases.
+  
   ```{r}
   # for each sample calculate the number of observed and expected number of mutations in each genomic regions
   distr = genomic_distribution(vcfs, surveyed_list, regions)

@@ -30,3 +30,7 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
   df$region = factor(df$region, levels = names(region_list))
   return(df)
 }
+
+
+region_list = regions
+vcf_list = vcfs
