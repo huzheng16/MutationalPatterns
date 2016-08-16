@@ -15,8 +15,6 @@ NEW FUNCTIONALITIES
 
 Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
 
-PAPER ON bioRxiv
-
   ```{r}
   citation("MutationalPatterns")
   ```
@@ -192,12 +190,12 @@ Estimate optimal rank for NMF mutation matrix decomposition
 
   ![estim_rank](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/estim_rank.png)
 
-Extract and plot 3 signatures
+Extract and plot 2 signatures
 
   ```{r}
-  nmf_res = extract_signatures(mut_matrix, rank = 3)
+  nmf_res = extract_signatures(mut_matrix, rank = 2)
   # provide signature names (optional)
-  colnames(nmf_res$signatures) = c("Signature A", "Signature B" , "Signature C")
+  colnames(nmf_res$signatures) = c("Signature A", "Signature B")
   # plot signatures
   plot_96_profile(nmf_res$signatures)
   ```
@@ -208,7 +206,7 @@ Plot signature contribution
 
   ```{r}
   # provide signature names (optional)
-  rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
+  rownames(nmf_res$contribution) = c("Signature A", "Signature B")
   # plot relative signature contribution
   plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
   # plot absolute signature contribution
