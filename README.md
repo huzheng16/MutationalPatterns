@@ -21,11 +21,11 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
 
 # Table of Contents
 
-[1. Getting started](#Getting-started)
-[2. Analyses](#Analyses)
+* [Getting started](#Getting-started)
+* [Analyses](#Analyses)
 
 
-#Getting started
+# Getting started
 
 ### Installation
 
@@ -109,7 +109,7 @@ Select autosomal chromosomes
   vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
-#Analyses
+# Analyses
 
 ## Mutation types
 
