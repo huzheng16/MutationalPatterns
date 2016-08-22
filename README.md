@@ -22,12 +22,20 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
 # Table of Contents
 
 * [Getting started](#Getting-started)
-* [Analyses](#Analyses)
+  * [Installation](#Installation)
+  * [Reference genome](#Reference-genome)
+  * [Test data](#Test-data)
+  * [Make chromosome names uniform](#Make-chromosome-names-uniform)
+* [Mutation characteristics](#Mutation-characteristics)
+* [Mutational signatures](#Mutational-signatures)
+* [Transcriptional strand bias](#-Transcriptional-strand-bias)
+* [Genomic distribution](#Genomic-distribution)
+
 
 
 # Getting started
 
-### Installation
+## Installation
 
 This package is dependent on R version 3.3.0
 
@@ -49,7 +57,7 @@ Install and load MutationalPatterns package
   library(MutationalPatterns)
   ```
 
-### Reference genome
+## Reference genome
 
 1. List all available reference genomes (BSgenome)
 
@@ -66,7 +74,7 @@ Install and load MutationalPatterns package
   library(ref_genome, character.only = T)
   ```
   
-### Load base substitution data
+## Test data
 
 This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
@@ -91,7 +99,7 @@ Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissu
   tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "liver", "liver", "liver")
   ```
 
-### Make chromosome names uniform
+## Make chromosome names uniform
 
 Check if chromosome names in vcf(s) and reference genome are the same
   ```{r}
@@ -109,9 +117,9 @@ Select autosomal chromosomes
   vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
-# Analyses
+# Mutation characteristics
 
-## Mutation types
+## Base substitution types
 
 Retrieve base substitutions from vcf object as "REF>ALT"
   ```{r}
@@ -189,7 +197,9 @@ Plot 96 profile of three samples
   ```
   ![96_mutation_profile](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/96_profile.png)
 
-## Extract Signatures
+# Mutational signatures
+
+## De novo mutational signature extraction
 
 Estimate optimal rank for NMF mutation matrix decomposition
 
@@ -241,7 +251,8 @@ Compare reconstructed mutation profile with original mutation profile
 
   ![originalVSreconstructed](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed.png)
 
-### Fit 96 mutation profiles to known signatures  
+
+## Fit 96 mutation profiles to known signatures  
 
 Download signatures from pan-cancer study Alexandrov et al.
   
@@ -276,7 +287,7 @@ Compare reconstructed mutation profile of sample 1 using cancer signatures with 
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
 
 
-## Transcriptional strand bias analysis
+# Transcriptional strand bias
 
 For the mutations within genes it can be determined whether the mutation is on the transcribed or non-transcribed strand, which is interesting to study involvement of transcription-coupled repair. To this end, it is determined whether the "C" or "T" base (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition. Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, since the gene definitions report the coding or sense strand, which is untranscribed. No strand information is reported for base substitution that overlap with more than one gene body.
 
@@ -336,6 +347,8 @@ Perform poisson test for strand asymmetry significance testing
   
   ![signatures_strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures_strand.png)  
 
+
+# Genomic distribution
 
 ## Rainfall plot
 
