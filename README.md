@@ -19,16 +19,25 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
   citation("MutationalPatterns")
   ```
 
+# Table of Contents
 
-# Getting started
+[1. Getting started](#Getting-started)
+[2. Analyses](#Analyses)
+
+
+#Getting started
 
 ### Installation
 
 This package is dependent on R version 3.3.0
 
-Install and load devtools package
+Install and load Devtools & BiocInstaller package
 
   ```{r}
+  # BiocInstaller
+  source("https://bioconductor.org/biocLite.R")
+  biocLite("BiocInstaller")
+  # Devtools
   install.packages("devtools")
   library(devtools)
   ```
@@ -59,7 +68,7 @@ Install and load MutationalPatterns package
   
 ### Load base substitution data
 
-This package is for the analysis of patterns in SNV data only, therefore the vcf files should not contain indel positions.
+This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
 Find package base substitution example/test data
   ```{r}
