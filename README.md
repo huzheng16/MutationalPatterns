@@ -24,7 +24,7 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
 
 ### Installation
 
-This package is dependent on R version 3.3.1
+This package is dependent on R version 3.3.0
 
 Install and load devtools package
 
@@ -321,10 +321,8 @@ Perform poisson test for strand asymmetry significance testing
   # plot signatures with 192 features
   plot_192_profile(nmf_res_strand$signatures)
   
-  # provide signature names (optional)
-  rownames(nmf_res_strand$contribution) = c("Signature A", "Signature B")
-  # plot signature contribution
-  plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_flip = T, mode = "absolute")
+  # plot strand bias per mutation type for each signature with significance test
+  plot_signature_strand_bias(nmf_res_strand$signatures)
   ```
   
   ![signatures_strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures_strand.png)  
