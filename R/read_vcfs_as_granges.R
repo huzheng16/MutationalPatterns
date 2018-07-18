@@ -112,7 +112,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                             "errors."))
     }
 
-    vcf_list <- mclapply (seq_along(vcf_files), function (index)
+    print(paste("Analyzing files ..."))
+    vcf_list <- lapply (seq_along(vcf_files), function (index)
     {
         file <- vcf_files[index]
 
@@ -123,6 +124,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
 
         # Convert to a single naming standard.
         seqlevelsStyle(vcf) <- ref_style[1]
+
+        print(paste("Checking for removal of contigs ..."))
 
         groups <- c()
         if (group != "none")
@@ -173,6 +176,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
             vcf <- keepSeqlevels(vcf, groups, pruning.mode = "tidy")
         }
 
+        print(paste("Checking for INDELs and multiple alternative alleles ..."))
+
         if (check_alleles)
         {
             # Find and exclude positions with indels or multiple
@@ -195,10 +200,12 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         # Pack GRanges object and the warnings to be able to display warnings
         # at a later time.
         return(list(vcf, warnings))
-    }, mc.cores = num_cores)
+    })
 
     # Reset the option.
     options(warn=original_warn_state)
+
+    print(paste("Checking for errors ..."))
 
     # mclapply wraps the call into a try(..., silent=TRUE)
     # When an error occurs, the error is returned, and accessible in the
@@ -220,9 +227,13 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         return(item[[1]])
     })
 
+    print(paste("Converting to GRangesList ..."))
+
     vcf_list <- GRangesList(vcf_list)
     # Set the provided names for the samples.
     names(vcf_list) <- sample_names
+
+    print(paste("Done ..."))
 
     return(vcf_list)
 }
