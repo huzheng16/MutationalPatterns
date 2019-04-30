@@ -122,7 +122,12 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         vcf <- rowRanges(readVcf (file, genome_name))
 
         # Convert to a single naming standard.
-        seqlevelsStyle(vcf) <- ref_style[1]
+        tryCatch({
+            seqlevelsStyle(vcf) <- ref_style[1]
+        }, error = function(m) {
+            stop(paste("There was a problem applying seqLevelStyles in '",
+                       file, "'", sep = ""))
+        })
 
         groups <- c()
         if (group != "none")
