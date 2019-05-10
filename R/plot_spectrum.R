@@ -61,7 +61,7 @@
 #'
 #' @export
 
-plot_spectrum = function(type_occurrences, CT=FALSE, by, colors, legend=TRUE)
+plot_spectrum = function(type_occurrences, CT=FALSE, by, colors, legend=TRUE, ylim)
 {
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
@@ -154,6 +154,7 @@ plot_spectrum = function(type_occurrences, CT=FALSE, by, colors, legend=TRUE)
         geom_bar(stat="identity") +
         scale_fill_manual(values=colors, name="Point mutation type") +
         theme_bw() +
+        ylim(0,ylim) +
         xlab("") +
         ylab("Relative contribution") +
         theme(axis.ticks = element_blank(),
