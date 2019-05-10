@@ -154,7 +154,7 @@ plot_spectrum = function(type_occurrences, CT=FALSE, by, colors, legend=TRUE, yl
         geom_bar(stat="identity") +
         scale_fill_manual(values=colors, name="Point mutation type") +
         theme_bw() +
-        ylim(0,ylim) +
+        ylim(-0.2,ylim) +
         xlab("") +
         ylab("Relative contribution") +
         theme(axis.ticks = element_blank(),
